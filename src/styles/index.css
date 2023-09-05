@@ -1,7 +1,7 @@
 :root {
   --primary-color: rgb(35, 35, 35);
   --secondary-color: rgb(214, 255, 121);
-  --terciary-color: rgb(31, 38, 44);
+  --tertiary-color: rgb(31, 38, 44);
   --primary-font: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
   --secondary-font: "Arimo", Arial, Helvetica, sans-serif;
 }
@@ -36,7 +36,7 @@ li {
 }
 
 button {
-  font-family: inherit;
+  font-family: var(--primary-font);
   border: none;
   background-color: transparent;
   cursor: pointer;
