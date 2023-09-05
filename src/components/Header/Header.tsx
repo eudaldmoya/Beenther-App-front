@@ -4,13 +4,14 @@ import "./Header.css";
 
 const Header = (): React.ReactElement => {
   return (
-    <header>
+    <header className="header">
       <div className="title-container">
         <img src={beentherLogo} alt="Beenther logo" />
         <button>
           <img src={logoutIcon} alt="logout icon" />
         </button>
       </div>
+      <div className="divider-container"></div>
       <div className="link-container">
         <span>Home</span>
         <span>Add</span>

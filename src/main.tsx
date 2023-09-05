@@ -5,6 +5,7 @@ import App from "./components/App/App";
 import "./styles/index.css";
 import { store } from "./store";
 import "@fontsource/bricolage-grotesque";
+import "@fontsource/arimo";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

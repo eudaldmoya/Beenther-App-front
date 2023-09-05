@@ -1,0 +1,30 @@
+.header {
+  padding: 0 20px;
+  background-color: var(--secondary-color);
+}
+
+.title-container,
+.link-container {
+  display: flex;
+  padding: 20px 0;
+  align-items: center;
+}
+
+.title-container {
+  justify-content: space-between;
+}
+
+.link-container {
+  justify-content: center;
+  gap: 50px;
+  font-family: var(--primary-font);
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.divider-container {
+  height: 2px;
+  width: 95%;
+  background-color: black;
+  margin: auto;
+}
