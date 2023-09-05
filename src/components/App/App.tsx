@@ -1,5 +1,7 @@
+import Header from "../Header/Header";
+
 const App = (): React.ReactElement => {
-  return <h1>Beenther!</h1>;
+  return <Header />;
 };
 
 export default App;

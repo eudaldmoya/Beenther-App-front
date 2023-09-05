@@ -1,5 +1,6 @@
 import beentherLogo from "../../assets/beentherLogo.svg";
 import logoutIcon from "../../assets/logoutIcon.svg";
+import Navigation from "../Navigation/Navigation";
 import "./Header.css";
 
 const Header = (): React.ReactElement => {
@@ -11,7 +12,7 @@ const Header = (): React.ReactElement => {
           <img src={logoutIcon} alt="logout icon" />
         </button>
       </div>
-      <div className="divider-container"></div>
+      <Navigation />
     </header>
   );
 };
