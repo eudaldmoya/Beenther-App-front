@@ -3,7 +3,7 @@ import Header from "./Header";
 
 describe("Given a Header component", () => {
   describe("When it is rendered", () => {
-    test("Then it should show a logo with alt text'Beenther logo'", () => {
+    test("Then it should show a logo with alt text 'Beenther logo'", () => {
       const imageAltText = "Beenther logo";
 
       render(<Header />);

@@ -12,10 +12,6 @@ const Header = (): React.ReactElement => {
         </button>
       </div>
       <div className="divider-container"></div>
-      <div className="link-container">
-        <span>Home</span>
-        <span>Add</span>
-      </div>
     </header>
   );
 };
