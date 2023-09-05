@@ -1,0 +1,51 @@
+:root {
+  --primary-color: rgb(35, 35, 35);
+  --secondary-color: rgb(214, 255, 121);
+  --terciary-color: rgb(31, 38, 44);
+  --primary-font: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
+  --secondary-font: "Arimo", Arial, Helvetica, sans-serif;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--secondary-font);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--primary-font);
+}
+
+body {
+  margin: 0;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background-color: transparent;
+}
+
+input {
+  border: none;
+  background-color: transparent;
+}
+
+a {
+  text-decoration: none;
+}
