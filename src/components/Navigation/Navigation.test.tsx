@@ -1,18 +1,25 @@
 import { render, screen } from "@testing-library/react";
 import Navigation from "./Navigation";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Given a Navigation component", () => {
   describe("When it is rendered", () => {
-    test("Then it should show 'Home' and 'Add' links", () => {
-      const expectedHomeText = "Home";
+    test("Then it should show 'Destinations' and 'Add' links", () => {
+      const expectedDestinationsText = "Destinations";
       const expectedAddText = "Add";
 
-      render(<Navigation />);
+      render(
+        <BrowserRouter>
+          <Navigation />
+        </BrowserRouter>,
+      );
 
-      const homeLink = screen.getByRole("link", { name: expectedHomeText });
+      const destinationsLink = screen.getByRole("link", {
+        name: expectedDestinationsText,
+      });
       const addlink = screen.getByRole("link", { name: expectedAddText });
 
-      expect(homeLink).toBeInTheDocument();
+      expect(destinationsLink).toBeInTheDocument();
       expect(addlink).toBeInTheDocument();
     });
   });
