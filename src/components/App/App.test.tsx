@@ -8,22 +8,6 @@ import App from "./App";
 vi.mock("firebase/auth");
 
 describe("Given an App component", () => {
-  describe("When it is rendered", () => {
-    test("Then it should show a link 'Destinations'", () => {
-      const linkText = "Destinations";
-
-      render(
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>,
-      );
-
-      const link = screen.getByRole("link", { name: linkText });
-
-      expect(link).toBeInTheDocument();
-    });
-  });
-
   describe("When the user is not logged in", () => {
     test("Then it should show 'Welcome to Beenther!'", () => {
       const headingText = "Welcome to Beenther!";

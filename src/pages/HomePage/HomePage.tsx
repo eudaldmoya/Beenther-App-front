@@ -15,7 +15,7 @@ const HomePage = () => {
   };
 
   return (
-    <main className="main-container">
+    <>
       <h1 className="login__title">
         Welcome to <span className="login__title--span">Beenther!</span>
       </h1>
@@ -31,7 +31,7 @@ const HomePage = () => {
           actionOnClick={login}
         />
       </div>
-    </main>
+    </>
   );
 };
 
