@@ -2,8 +2,8 @@
   --primary-color: rgb(35, 35, 35);
   --secondary-color: rgb(214, 255, 121);
   --tertiary-color: rgb(31, 38, 44);
-  --primary-font: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
-  --secondary-font: "Arimo", Arial, Helvetica, sans-serif;
+  --primary-font: "Arimo", Arial, Helvetica, sans-serif;
+  --secondary-font: "Bricolage Grotesque", Arial, Helvetica, sans-serif;
 }
 
 *,
@@ -13,18 +13,19 @@
 }
 
 html {
-  font-family: var(--secondary-font);
+  font-family: var(--primary-font);
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-family: var(--primary-font);
+  font-family: var(--secondary-font);
 }
 
 body {
   margin: 0;
+  background-color: var(--primary-color);
 }
 
 ul,
@@ -36,7 +37,7 @@ li {
 }
 
 button {
-  font-family: var(--primary-font);
+  font-family: var(--secondary-font);
   border: none;
   background-color: transparent;
   cursor: pointer;

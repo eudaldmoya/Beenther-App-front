@@ -15,13 +15,13 @@ const HomePage = () => {
   };
 
   return (
-    <main className="main-container">
+    <>
       <h1 className="login__title">
         Welcome to <span className="login__title--span">Beenther!</span>
       </h1>
-      <h2 className="login__description">
+      <span className="login__description">
         Save and mark your favorite places in the planet!
-      </h2>
+      </span>
       <div className="login__button">
         <Button
           isActive={true}
@@ -31,7 +31,7 @@ const HomePage = () => {
           actionOnClick={login}
         />
       </div>
-    </main>
+    </>
   );
 };
 

@@ -1,26 +1,28 @@
-import { Navigate, Routes, Route } from "react-router-dom";
-import Header from "../Header/Header";
-import "./App.css";
-import HomePage from "../../pages/HomePage/HomePage";
+import { Navigate, Route, Routes } from "react-router-dom";
 import DestinationsPage from "../../pages/DestinationsPage/DestinationsPage";
+import HomePage from "../../pages/HomePage/HomePage";
+import Header from "../Header/Header";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import "./App.css";
 
 const App = (): React.ReactElement => {
   return (
     <div className="container">
-      <Header />
-      <Routes>
-        <Route path="/home" element={<HomePage />} />
-        <Route
-          path="/destinations"
-          element={
-            <ProtectedRoute>
-              <DestinationsPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/" element={<Navigate to="home" />} />
-      </Routes>
+      <main className="main-container">
+        <Routes>
+          <Route path="/home" element={<HomePage />} />
+          <Route
+            path="/destinations"
+            element={
+              <ProtectedRoute>
+                <Header />
+                <DestinationsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/" element={<Navigate to="home" />} />
+        </Routes>
+      </main>
     </div>
   );
 };
