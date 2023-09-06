@@ -1,12 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import Header from "./Header";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Given a Header component", () => {
   describe("When it is rendered", () => {
     test("Then it should show a logo with alt text 'Beenther logo'", () => {
       const imageAltText = "Beenther logo";
 
-      render(<Header />);
+      render(
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>,
+      );
 
       const imageElement = screen.getByAltText(imageAltText);
 
@@ -16,7 +21,11 @@ describe("Given a Header component", () => {
     test("Then it should show a logout icon with alt text 'logout icon'", () => {
       const imageAltText = "logout icon";
 
-      render(<Header />);
+      render(
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>,
+      );
 
       const imageElement = screen.getByAltText(imageAltText);
 
