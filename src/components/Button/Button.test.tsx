@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Button from "./Button";
+import userEvent from "@testing-library/user-event";
 
 describe("Given a Button component", () => {
   describe("When it receives a text 'Pending'", () => {
@@ -8,17 +9,33 @@ describe("Given a Button component", () => {
       const actionOnClick = vi.fn();
 
       render(
-        <Button
-          isActive={false}
-          isCardButton={true}
-          text={buttonText}
-          actionOnClick={actionOnClick}
-        />,
+        <Button className="active button" actionOnClick={actionOnClick}>
+          Pending
+        </Button>,
       );
 
       const button = screen.getByRole("button", { name: buttonText });
 
       expect(button).toBeInTheDocument();
+    });
+  });
+
+  describe("When it receives an actionOnClick function and the button is clicked", () => {
+    test("Then the funciont actionOnClick should be called", async () => {
+      const buttonText = "Pending";
+      const actionOnClick = vi.fn();
+
+      render(
+        <Button className="active button" actionOnClick={actionOnClick}>
+          Pending
+        </Button>,
+      );
+
+      const button = screen.getByRole("button", { name: buttonText });
+
+      await userEvent.click(button);
+
+      expect(actionOnClick).toHaveBeenCalled();
     });
   });
 });

@@ -32,6 +32,7 @@ describe("Given an App component", () => {
     test("Then it should show 'Welcome to Beenther!' inside a heading", async () => {
       const buttonText = "logout icon";
       const headingText = "Welcome to Beenther!";
+      const homeHeadingText = "Your destinations";
       const user: Partial<User> = {
         displayName: "mike",
       };
@@ -46,13 +47,13 @@ describe("Given an App component", () => {
       );
 
       const loginButton = screen.getByRole("button", {
-        name: "Sign In Sign In icon",
+        name: buttonText,
       });
       await userEvent.click(loginButton);
 
       waitFor(() => {
         const heading = screen.getByRole("heading", {
-          name: "Your destinations",
+          name: homeHeadingText,
         });
 
         expect(heading).toBeInTheDocument();
