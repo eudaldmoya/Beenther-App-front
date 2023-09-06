@@ -23,13 +23,9 @@ const HomePage = () => {
         Save and mark your favorite places in the planet!
       </span>
       <div className="login__button">
-        <Button
-          isActive={true}
-          isCardButton={false}
-          text="Sign In"
-          icon={githubLogo}
-          actionOnClick={login}
-        />
+        <Button className="button active" actionOnClick={login}>
+          Sign in <img src={githubLogo} alt="Github logo" />
+        </Button>
       </div>
     </>
   );
