@@ -1,0 +1,31 @@
+.main-container {
+  margin: auto;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.login__title {
+  font-size: 35px;
+  color: white;
+  font-weight: 200;
+}
+
+.login__title--span {
+  font-size: 65px;
+  font-weight: bold;
+}
+
+.login__button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.login__description {
+  font-family: var(--secondary-font);
+  color: white;
+  font-weight: 100;
+  font-size: 20px;
+  margin-top: 40px;
+}
