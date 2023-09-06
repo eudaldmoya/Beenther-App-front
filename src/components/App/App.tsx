@@ -4,23 +4,28 @@ import HomePage from "../../pages/HomePage/HomePage";
 import Header from "../Header/Header";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
+import { destinations, home, root } from "../../utils/paths";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
 
 const App = (): React.ReactElement => {
+  const [user] = useAuthState(auth);
+
   return (
     <div className="container">
+      {user && <Header />}
       <main className="main-container">
         <Routes>
-          <Route path="/home" element={<HomePage />} />
+          <Route path={home} element={<HomePage />} />
           <Route
-            path="/destinations"
+            path={destinations}
             element={
               <ProtectedRoute>
-                <Header />
                 <DestinationsPage />
               </ProtectedRoute>
             }
           />
-          <Route path="/" element={<Navigate to="home" />} />
+          <Route path={root} element={<Navigate to="home" />} />
         </Routes>
       </main>
     </div>

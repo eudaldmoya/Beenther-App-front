@@ -9,8 +9,12 @@ vi.mock("firebase/auth");
 
 describe("Given an App component", () => {
   describe("When the user is not logged in", () => {
-    test("Then it should show 'Welcome to Beenther!'", () => {
+    test("Then it should show 'Welcome to Beenther!' inside a heading", () => {
       const headingText = "Welcome to Beenther!";
+
+      const authStateHookMock: Partial<AuthStateHook> = [undefined];
+
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
 
       render(
         <BrowserRouter>
