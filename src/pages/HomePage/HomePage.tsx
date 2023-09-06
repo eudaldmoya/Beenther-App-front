@@ -1,8 +1,8 @@
-import Button from "../components/Button/Button";
-import githubLogo from "../assets/githubLogo.svg";
 import "./HomePage.css";
 import { signInWithPopup } from "firebase/auth";
-import { auth, githubProvider } from "../firebase";
+import Button from "../../components/Button/Button";
+import { auth, githubProvider } from "../../firebase";
+import githubLogo from "../../assets/githubLogo.svg";
 
 const HomePage = () => {
   const login = async () => {
