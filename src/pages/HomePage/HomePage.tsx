@@ -3,10 +3,15 @@ import { signInWithPopup } from "firebase/auth";
 import Button from "../../components/Button/Button";
 import { auth, githubProvider } from "../../firebase";
 import githubLogo from "../../assets/githubLogo.svg";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   const login = async () => {
     await signInWithPopup(auth, githubProvider);
+
+    navigate("/destinations");
   };
 
   return (
