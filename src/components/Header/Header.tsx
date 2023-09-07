@@ -4,10 +4,15 @@ import logoutIcon from "../../assets/logoutIcon.svg";
 import { auth } from "../../firebase";
 import Navigation from "../Navigation/Navigation";
 import "./Header.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = (): React.ReactElement => {
+  const navigate = useNavigate();
+
   const logout = async () => {
     await signOut(auth);
+
+    navigate("/home");
   };
 
   return (

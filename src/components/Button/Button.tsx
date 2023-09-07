@@ -1,30 +1,19 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import "./Button.css";
 
-interface ButtonProps {
-  text: string;
-  icon?: string;
-  isCardButton: boolean;
-  isActive: boolean;
+interface ButtonProps extends PropsWithChildren {
+  className: string;
   actionOnClick: () => void;
 }
 
 const Button = ({
-  text,
-  icon,
-  isCardButton,
-  isActive,
   actionOnClick,
+  className,
+  children,
 }: ButtonProps): React.ReactElement => {
   return (
-    <button
-      className={`${isCardButton ? "button button-card" : "button"} ${
-        isActive ? "active" : "inactive"
-      }`}
-      onClick={actionOnClick}
-    >
-      {text}
-      {icon && <img src={icon} alt={`${text} icon`} />}
+    <button onClick={actionOnClick} className={className}>
+      {children}
     </button>
   );
 };
