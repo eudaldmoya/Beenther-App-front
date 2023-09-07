@@ -16,14 +16,14 @@ const HomePage = () => {
 
   return (
     <>
-      <h1 className="login__title">
-        Welcome to <span className="login__title--span">Beenther!</span>
+      <h1 className="login-title">
+        Welcome to <span className="login-title-span">Beenther!</span>
       </h1>
-      <span className="login__description">
+      <span className="login-description">
         Save and mark your favorite places in the planet!
       </span>
-      <div className="login__button">
-        <Button className="button active" actionOnClick={login}>
+      <div className="login-button">
+        <Button className="active" actionOnClick={login}>
           Sign in <img src={githubLogo} alt="Github logo" />
         </Button>
       </div>

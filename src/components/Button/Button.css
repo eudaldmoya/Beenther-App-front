@@ -8,13 +8,3 @@
   font-size: 18px;
   font-weight: 600;
 }
-
-.button-card {
-  padding: 10px;
-}
-
-.inactive {
-  background-color: var(--tertiary-color);
-  color: white;
-  border: 1px solid var(--secondary-color);
-}
