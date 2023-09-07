@@ -1,6 +1,5 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import "./Button.css";
-import { PropsWithChildren } from "react";
 
 interface ButtonProps extends PropsWithChildren {
   className: string;
