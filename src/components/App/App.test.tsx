@@ -4,6 +4,8 @@ import { User } from "firebase/auth";
 import authHook, { AuthStateHook } from "react-firebase-hooks/auth";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import App from "./App";
+import { Provider } from "react-redux";
+import { store } from "../../store";
 
 vi.mock("firebase/auth");
 
@@ -18,7 +20,9 @@ describe("Given an App component", () => {
 
       render(
         <BrowserRouter>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </BrowserRouter>,
       );
 
@@ -42,7 +46,9 @@ describe("Given an App component", () => {
 
       render(
         <MemoryRouter initialEntries={[destinationsRoute]}>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </MemoryRouter>,
       );
 
@@ -65,7 +71,9 @@ describe("Given an App component", () => {
 
       render(
         <MemoryRouter initialEntries={["/destinations"]}>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </MemoryRouter>,
       );
 
@@ -91,7 +99,9 @@ describe("Given an App component", () => {
 
       render(
         <MemoryRouter initialEntries={[destinationsRoute]}>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </MemoryRouter>,
       );
 

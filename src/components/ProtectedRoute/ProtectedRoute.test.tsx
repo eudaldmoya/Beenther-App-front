@@ -4,6 +4,8 @@ import auth, { AuthStateHook } from "react-firebase-hooks/auth";
 import { BrowserRouter } from "react-router-dom";
 import DestinationsPage from "../../pages/DestinationsPage/DestinationsPage";
 import ProtectedRoute from "./ProtectedRoute";
+import { store } from "../../store";
+import { Provider } from "react-redux";
 
 describe("Given a ProtectedRoute component", () => {
   describe("When the user is not logged in", () => {
@@ -19,9 +21,11 @@ describe("Given a ProtectedRoute component", () => {
 
       render(
         <BrowserRouter>
-          <ProtectedRoute>
-            <DestinationsPage />
-          </ProtectedRoute>
+          <Provider store={store}>
+            <ProtectedRoute>
+              <DestinationsPage />
+            </ProtectedRoute>
+          </Provider>
         </BrowserRouter>,
       );
 
