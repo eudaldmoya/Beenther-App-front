@@ -1,15 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { User } from "firebase/auth";
 import auth, { AuthStateHook } from "react-firebase-hooks/auth";
-import { BrowserRouter } from "react-router-dom";
-import DestinationsPage from "../../pages/DestinationsPage/DestinationsPage";
-import ProtectedRoute from "./ProtectedRoute";
-import { store } from "../../store";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { store } from "../../store";
+import ProtectedRoute from "./ProtectedRoute";
 
 describe("Given a ProtectedRoute component", () => {
-  describe("When the user is not logged in", () => {
-    test("Then it should not show DestinationsPage title 'Your destinations' inside a heading", () => {
+  describe("When the user is logged in", () => {
+    test("Then it should show 'Your destinations' inside a heading", () => {
       const user: Partial<User> = {
         displayName: "mike",
       };
@@ -23,7 +22,9 @@ describe("Given a ProtectedRoute component", () => {
         <BrowserRouter>
           <Provider store={store}>
             <ProtectedRoute>
-              <DestinationsPage />
+              <div>
+                <h1>Your destinations</h1>
+              </div>
             </ProtectedRoute>
           </Provider>
         </BrowserRouter>,
