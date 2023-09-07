@@ -1,0 +1,43 @@
+.card {
+  position: relative;
+  max-width: 350px;
+  margin: auto;
+  color: white;
+  overflow: hidden;
+}
+
+.card__image {
+  object-fit: cover;
+}
+
+.card__info {
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  padding: 20px 16px;
+  bottom: 4px;
+}
+
+.card__location {
+  display: inline;
+  background-color: var(--tertiary-color);
+  padding: 5px 15px;
+  font-weight: 100;
+  font-size: 16px;
+}
+
+.card__title {
+  font-size: 28px;
+}
+
+.card__filter {
+  position: absolute;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0),
+    rgb(0, 0, 0, 0.85)
+  );
+  bottom: 4px;
+}

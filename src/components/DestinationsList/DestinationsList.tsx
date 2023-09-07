@@ -1,4 +1,5 @@
 import { useAppSelector } from "../../store";
+import DestinationCard from "../DestinationCard/DestinationCard";
 
 const DestinationsList = () => {
   const destinations = useAppSelector(
@@ -10,7 +11,7 @@ const DestinationsList = () => {
       {destinations.map((destination) => {
         return (
           <li key={destination._id}>
-            <h2>{destination.name}</h2>
+            <DestinationCard destination={destination} />
           </li>
         );
       })}

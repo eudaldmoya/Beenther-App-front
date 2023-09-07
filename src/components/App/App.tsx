@@ -3,7 +3,6 @@ import DestinationsPage from "../../pages/DestinationsPage/DestinationsPage";
 import HomePage from "../../pages/HomePage/HomePage";
 import Header from "../Header/Header";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import "./App.css";
 import { destinations, home, root } from "../../utils/paths";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
@@ -12,7 +11,7 @@ const App = (): React.ReactElement => {
   const [user] = useAuthState(auth);
 
   return (
-    <div className="container">
+    <>
       {user && <Header />}
       <main className="main-container">
         <Routes>
@@ -28,7 +27,7 @@ const App = (): React.ReactElement => {
           <Route path={root} element={<Navigate to="home" />} />
         </Routes>
       </main>
-    </div>
+    </>
   );
 };
 
