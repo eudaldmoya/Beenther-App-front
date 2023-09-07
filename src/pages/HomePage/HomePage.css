@@ -4,25 +4,25 @@
   padding: 20px;
 }
 
-.login__title {
+.login-title {
   font-size: 35px;
   color: white;
   font-weight: 200;
 }
 
-.login__title--span {
+.login-title-span {
   font-size: 65px;
   font-weight: bold;
 }
 
-.login__button {
+.login-button {
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 80px;
 }
 
-.login__description {
+.login-description {
   font-family: var(--secondary-font);
   color: white;
   font-weight: 100;

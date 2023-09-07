@@ -12,7 +12,7 @@ const Button = ({
   children,
 }: ButtonProps): React.ReactElement => {
   return (
-    <button onClick={actionOnClick} className={className}>
+    <button onClick={actionOnClick} className={`button ${className}`}>
       {children}
     </button>
   );
