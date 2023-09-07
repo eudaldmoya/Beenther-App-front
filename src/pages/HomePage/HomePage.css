@@ -29,3 +29,9 @@
   font-size: 20px;
   margin-top: 40px;
 }
+
+.inactive {
+  background-color: var(--tertiary-color);
+  color: white;
+  border: 1px solid var(--secondary-color);
+}
