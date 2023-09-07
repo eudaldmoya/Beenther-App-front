@@ -1,6 +1,6 @@
 import { Destination } from "../types";
 
-export const destinationsmock: Destination[] = [
+export const destinationsMock: Destination[] = [
   {
     _id: "louiseId",
     name: "Lake Louise",
