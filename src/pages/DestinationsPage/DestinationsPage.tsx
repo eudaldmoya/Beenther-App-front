@@ -3,6 +3,7 @@ import { loadDestinationsActionCreator } from "../../store/destinations/destinat
 import { destinationsMock } from "../../mocks/destinationsMock";
 import { useAppDispatch } from "../../store";
 import DestinationsList from "../../components/DestinationsList/DestinationsList";
+import "./DestinationsPage.css";
 
 const DestinationsPage = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +14,7 @@ const DestinationsPage = () => {
 
   return (
     <main>
-      <h1>Your destinations</h1>
+      <h1 className="title">Your destinations</h1>
       <section>
         <DestinationsList />
       </section>

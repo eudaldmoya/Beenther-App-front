@@ -3,7 +3,6 @@ import DestinationsPage from "../../pages/DestinationsPage/DestinationsPage";
 import HomePage from "../../pages/HomePage/HomePage";
 import Header from "../Header/Header";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import "./App.css";
 import { destinations, home, root } from "../../utils/paths";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
