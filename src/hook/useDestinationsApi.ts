@@ -4,12 +4,12 @@ import axios from "axios";
 import { Destination } from "../types";
 
 const useDestinationsApi = () => {
-  const apiBaseUrl = import.meta.env.VITE_ROBOTS_API_URL;
+  const apiBaseUrl = import.meta.env.VITE_DESTINATIONS_API_URL;
   const [user] = useIdToken(auth);
 
   const getDestinationsApi = async () => {
     try {
-      const token = user?.getIdToken();
+      const token = await user?.getIdToken();
 
       const config = {
         headers: { Authorization: `Bearer ${token}` },
@@ -19,11 +19,12 @@ const useDestinationsApi = () => {
         `${apiBaseUrl}/destinations`,
         config,
       );
+
       const { destinations } = data;
 
       return destinations;
     } catch {
-      throw new Error("Could not get the robots");
+      throw new Error("Could not get the destinations");
     }
   };
 
