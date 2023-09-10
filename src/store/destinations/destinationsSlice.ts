@@ -11,9 +11,10 @@ const destinationsSlice = createSlice({
   initialState: initialState,
   reducers: {
     loadDestinations: (
-      _currentDestinationsState: DestinationsState,
+      currentDestinationsState: DestinationsState,
       action: PayloadAction<Destination[]>,
     ): DestinationsState => ({
+      ...currentDestinationsState,
       destinations: action.payload,
     }),
   },
