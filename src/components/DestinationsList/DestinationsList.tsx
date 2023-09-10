@@ -1,5 +1,6 @@
 import { useAppSelector } from "../../store";
 import DestinationCard from "../DestinationCard/DestinationCard";
+import "./DestinationsList.css";
 
 const DestinationsList = () => {
   const destinations = useAppSelector(
@@ -7,7 +8,7 @@ const DestinationsList = () => {
   );
 
   return (
-    <ul>
+    <ul className="destinations-list">
       {destinations.map((destination) => {
         return (
           <li key={destination._id}>
