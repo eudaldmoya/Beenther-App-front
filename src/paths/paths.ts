@@ -4,4 +4,4 @@ const paths = {
   destinations: "/destinations",
 };
 
-export const { root, home, destinations } = paths;
+export default paths;
