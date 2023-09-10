@@ -3,14 +3,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import DestinationsList from "../../components/DestinationsList/DestinationsList";
 import { auth } from "../../firebase";
 import useDestinationsApi from "../../hook/useDestinationsApi";
-import { useAppDispatch } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store";
 import { loadDestinationsActionCreator } from "../../store/destinations/destinationsSlice";
 import "./DestinationsPage.css";
+import Loading from "../../components/Loading/Loading";
 
 const DestinationsPage = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const { getDestinationsApi } = useDestinationsApi();
   const [user] = useAuthState(auth);
+  const isLoading = useAppSelector((state) => state.uiState.isLoading);
 
   useEffect(() => {
     (async () => {
@@ -25,7 +27,7 @@ const DestinationsPage = (): React.ReactElement => {
   return (
     <>
       <h1 className="title">Your destinations</h1>
-      <DestinationsList />
+      {isLoading ? <Loading /> : <DestinationsList />}
     </>
   );
 };
