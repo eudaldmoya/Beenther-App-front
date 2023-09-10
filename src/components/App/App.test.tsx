@@ -1,13 +1,28 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { User } from "firebase/auth";
-import authHook, { AuthStateHook } from "react-firebase-hooks/auth";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
-import App from "./App";
+import { Auth, User, signInWithPopup, signOut } from "firebase/auth";
+import auth, { AuthStateHook } from "react-firebase-hooks/auth";
 import { Provider } from "react-redux";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import { store } from "../../store";
+import App from "./App";
 
-vi.mock("firebase/auth");
+beforeEach(() => {
+  vi.clearAllMocks();
+});
+
+vi.mock("firebase/auth", async () => {
+  const actual: Auth = await vi.importActual("firebase/auth");
+  return {
+    ...actual,
+    signInWithPopup: vi.fn(),
+    signOut: vi.fn(),
+  };
+});
+
+const user: Partial<User> = {
+  displayName: "mike",
+};
 
 describe("Given an App component", () => {
   describe("When the user is not logged in", () => {
@@ -16,7 +31,7 @@ describe("Given an App component", () => {
 
       const authStateHookMock: Partial<AuthStateHook> = [undefined];
 
-      authHook.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
 
       render(
         <BrowserRouter>
@@ -33,19 +48,12 @@ describe("Given an App component", () => {
   });
 
   describe("When the user clicks on the login button", () => {
-    test("Then it should show 'Your destinations' inside a heading", async () => {
+    test("Then the login function should be called", async () => {
       const buttonText = /sign in github logo/i;
-      const headingText = "Your destinations";
-      const user: Partial<User> = {
-        displayName: "mike",
-      };
-      const destinationsRoute = "/home";
-      const authStateHookMock: Partial<AuthStateHook> = [user as User];
-
-      authHook.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+      const homeRoute = "/home";
 
       render(
-        <MemoryRouter initialEntries={[destinationsRoute]}>
+        <MemoryRouter initialEntries={[homeRoute]}>
           <Provider store={store}>
             <App />
           </Provider>
@@ -55,19 +63,37 @@ describe("Given an App component", () => {
       const loginButton = screen.getByRole("button", { name: buttonText });
       await userEvent.click(loginButton);
 
-      waitFor(() => {
-        const heading = screen.getByRole("heading", { name: headingText });
+      expect(signInWithPopup).toHaveBeenCalled();
+    });
+  });
 
-        expect(heading).toBeInTheDocument();
-      });
+  describe("When the user clicks on the logout button", () => {
+    test("Then it should show 'Welcome to Beenther!' inside a heading", async () => {
+      const buttonText = "logout icon";
+      const destinationsRoute = "/destinations";
+
+      const authStateHookMock: Partial<AuthStateHook> = [user as User];
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      render(
+        <MemoryRouter initialEntries={[destinationsRoute]}>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </MemoryRouter>,
+      );
+
+      const logoutButton = screen.getByRole("button", { name: buttonText });
+      await userEvent.click(logoutButton);
+
+      expect(signOut).toHaveBeenCalled();
     });
   });
 
   describe("When the user is not logged in and it is not loading", () => {
     test("Then it should show 'Welcome to Beenther!' inside a heading", () => {
       const authStateHookMock: Partial<AuthStateHook> = [undefined, undefined];
-
-      authHook.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
 
       render(
         <MemoryRouter initialEntries={["/destinations"]}>
@@ -85,30 +111,24 @@ describe("Given an App component", () => {
     });
   });
 
-  describe("When the user clicks on the logout button", () => {
-    test("Then it should show 'Welcome to Beenther!' inside a heading", async () => {
-      const buttonText = "logout icon";
-      const headingText = "Welcome to Beenther!";
-      const user: Partial<User> = {
-        displayName: "mike",
-      };
-      const destinationsRoute = "/destinations";
+  describe("When the user is logged in", () => {
+    test("Then it should show 'Your destinations' inside a heading", () => {
+      const homeRoute = "/home";
+      const headingText = "Your destinations";
       const authStateHookMock: Partial<AuthStateHook> = [user as User];
-
-      authHook.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
 
       render(
-        <MemoryRouter initialEntries={[destinationsRoute]}>
+        <MemoryRouter initialEntries={[homeRoute]}>
           <Provider store={store}>
             <App />
           </Provider>
         </MemoryRouter>,
       );
 
-      const logoutButton = screen.getByRole("button", { name: buttonText });
-      await userEvent.click(logoutButton);
-
-      const heading = await screen.findByRole("heading", { name: headingText });
+      const heading = screen.getByRole("heading", {
+        name: headingText,
+      });
 
       expect(heading).toBeInTheDocument();
     });

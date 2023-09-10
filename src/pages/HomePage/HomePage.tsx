@@ -1,17 +1,20 @@
-import "./HomePage.css";
 import { signInWithPopup } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Navigate } from "react-router-dom";
+import githubLogo from "../../assets/githubLogo.svg";
 import Button from "../../components/Button/Button";
 import { auth, githubProvider } from "../../firebase";
-import githubLogo from "../../assets/githubLogo.svg";
-import { useNavigate } from "react-router-dom";
+import "./HomePage.css";
 
 const HomePage = () => {
-  const navigate = useNavigate();
+  const [user] = useAuthState(auth);
+
+  if (user) {
+    return <Navigate to="/destinations" />;
+  }
 
   const login = async () => {
     await signInWithPopup(auth, githubProvider);
-
-    navigate("/destinations");
   };
 
   return (
@@ -24,7 +27,8 @@ const HomePage = () => {
       </span>
       <div className="login-button">
         <Button className="active" actionOnClick={login}>
-          Sign in <img src={githubLogo} alt="Github logo" />
+          Sign in{" "}
+          <img src={githubLogo} alt="Github logo" width={20} height={20} />
         </Button>
       </div>
     </>
