@@ -1,24 +1,32 @@
 import { useEffect } from "react";
-import { loadDestinationsActionCreator } from "../../store/destinations/destinationsSlice";
-import { destinationsMock } from "../../mocks/destinationsMock";
-import { useAppDispatch } from "../../store";
+import { useAuthState } from "react-firebase-hooks/auth";
 import DestinationsList from "../../components/DestinationsList/DestinationsList";
+import { auth } from "../../firebase";
+import useDestinationsApi from "../../hook/useDestinationsApi";
+import { useAppDispatch } from "../../store";
+import { loadDestinationsActionCreator } from "../../store/destinations/destinationsSlice";
 import "./DestinationsPage.css";
 
-const DestinationsPage = () => {
+const DestinationsPage = (): React.ReactElement => {
   const dispatch = useAppDispatch();
+  const { getDestinationsApi } = useDestinationsApi();
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
-    dispatch(loadDestinationsActionCreator(destinationsMock));
-  }, [dispatch]);
+    (async () => {
+      if (user) {
+        const destinations = await getDestinationsApi();
+
+        dispatch(loadDestinationsActionCreator(destinations));
+      }
+    })();
+  }, [dispatch, getDestinationsApi, user]);
 
   return (
-    <main>
+    <>
       <h1 className="title">Your destinations</h1>
-      <section>
-        <DestinationsList />
-      </section>
-    </main>
+      <DestinationsList />
+    </>
   );
 };
 
