@@ -3,7 +3,7 @@ import { showLoadingActionCreator, uiReducer } from "../uiSlice";
 
 describe("Given a uiReducer reducer", () => {
   describe("When it receives a showLoading action", () => {
-    test("Then it should return a new state with loading true", () => {
+    test("Then it should return a new state with isLoading true", () => {
       const currentUiState: UiState = {
         isLoading: false,
       };
