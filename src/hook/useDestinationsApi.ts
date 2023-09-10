@@ -1,15 +1,23 @@
+import axios from "axios";
+import { useCallback } from "react";
 import { useIdToken } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
-import axios from "axios";
-import { Destination } from "../types";
-import { useCallback } from "react";
 import paths from "../paths/paths";
+import { useAppDispatch } from "../store";
+import {
+  hideLoadingActionCreator,
+  showLoadingActionCreator,
+} from "../store/ui/uiSlice";
+import { Destination } from "../types";
 
 const useDestinationsApi = () => {
   const apiBaseUrl = import.meta.env.VITE_DESTINATIONS_API_URL;
   const [user] = useIdToken(auth);
+  const dispatch = useAppDispatch();
 
   const getDestinationsApi = useCallback(async () => {
+    dispatch(showLoadingActionCreator());
+
     try {
       const token = await user?.getIdToken();
 
@@ -24,11 +32,15 @@ const useDestinationsApi = () => {
 
       const { destinations } = data;
 
+      dispatch(hideLoadingActionCreator());
+
       return destinations;
     } catch {
+      dispatch(hideLoadingActionCreator());
+
       throw new Error("Could not get the destinations");
     }
-  }, [apiBaseUrl, user]);
+  }, [apiBaseUrl, dispatch, user]);
 
   return { getDestinationsApi };
 };
