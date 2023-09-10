@@ -8,7 +8,6 @@
 .bar {
   width: 10px;
   height: 70px;
-  background: #fff;
   display: inline-block;
   transform-origin: bottom center;
   border-top-right-radius: 20px;

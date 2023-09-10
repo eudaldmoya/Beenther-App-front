@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import { loadDestinationsActionCreator } from "../../store/destinations/destinationsSlice";
 import "./DestinationsPage.css";
 import Loading from "../../components/Loading/Loading";
+import FeedBack from "../../components/FeedBack/FeedBack";
 
 const DestinationsPage = (): React.ReactElement => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ const DestinationsPage = (): React.ReactElement => {
 
   return (
     <>
+      <FeedBack />
       <h1 className="title">Your destinations</h1>
       {isLoading ? <Loading /> : <DestinationsList />}
     </>
