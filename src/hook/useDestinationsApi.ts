@@ -3,6 +3,7 @@ import { auth } from "../firebase";
 import axios from "axios";
 import { Destination } from "../types";
 import { useCallback } from "react";
+import paths from "../paths/paths";
 
 const useDestinationsApi = () => {
   const apiBaseUrl = import.meta.env.VITE_DESTINATIONS_API_URL;
@@ -17,7 +18,7 @@ const useDestinationsApi = () => {
       };
 
       const { data } = await axios.get<{ destinations: Destination[] }>(
-        `${apiBaseUrl}/destinations`,
+        `${apiBaseUrl}${paths.destinations}`,
         config,
       );
 

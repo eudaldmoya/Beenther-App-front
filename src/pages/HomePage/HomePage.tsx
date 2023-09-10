@@ -5,12 +5,13 @@ import githubLogo from "../../assets/githubLogo.svg";
 import Button from "../../components/Button/Button";
 import { auth, githubProvider } from "../../firebase";
 import "./HomePage.css";
+import paths from "../../paths/paths";
 
 const HomePage = () => {
   const [user] = useAuthState(auth);
 
   if (user) {
-    return <Navigate to="/destinations" />;
+    return <Navigate to={paths.destinations} />;
   }
 
   const login = async () => {
