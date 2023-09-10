@@ -48,7 +48,7 @@
   }
   50% {
     transform: scaleY(1);
-    background: yellowgreen;
+    background: var(--secondary-color);
   }
   100% {
     transform: scaleY(0.1);
