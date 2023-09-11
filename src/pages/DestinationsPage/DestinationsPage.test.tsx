@@ -1,20 +1,23 @@
 import { render, screen } from "@testing-library/react";
-import DestinationsPage from "./DestinationsPage";
+import { Suspense } from "react";
 import { Provider } from "react-redux";
 import { store } from "../../store";
+import { DestinationsPagePreview } from "./DestinationsPage";
 
 describe("Given a DestinationsPage page", () => {
   describe("When it is rendered", () => {
-    test("Then it should show 'Your destinations' inside a heading", () => {
+    test("Then it should show 'Your destinations' inside a heading", async () => {
       const title = "Your destinations";
 
       render(
         <Provider store={store}>
-          <DestinationsPage />
+          <Suspense>
+            <DestinationsPagePreview />
+          </Suspense>
         </Provider>,
       );
 
-      const heading = screen.getByRole("heading", { name: title });
+      const heading = await screen.findByRole("heading", { name: title });
 
       expect(heading).toBeInTheDocument();
     });

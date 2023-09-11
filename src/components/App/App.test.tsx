@@ -26,7 +26,7 @@ const user: Partial<User> = {
 
 describe("Given an App component", () => {
   describe("When the user is not logged in", () => {
-    test("Then it should show 'Welcome to Beenther!' inside a heading", () => {
+    test("Then it should show 'Welcome to Beenther!' inside a heading", async () => {
       const headingText = "Welcome to Beenther!";
 
       const authStateHookMock: Partial<AuthStateHook> = [undefined];
@@ -41,7 +41,7 @@ describe("Given an App component", () => {
         </BrowserRouter>,
       );
 
-      const heading = screen.getByRole("heading", { name: headingText });
+      const heading = await screen.findByRole("heading", { name: headingText });
 
       expect(heading).toBeInTheDocument();
     });
