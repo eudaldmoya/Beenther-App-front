@@ -1,0 +1,22 @@
+.error {
+  font-family: var(--secondary-font);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  gap: 10px;
+}
+
+.error__code {
+  margin-top: 50px;
+  font-size: 160px;
+  font-weight: bold;
+}
+
+.error__text {
+  font-size: 30px;
+}
+
+.error__button {
+  margin-top: 30px;
+}
