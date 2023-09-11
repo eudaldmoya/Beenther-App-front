@@ -2,6 +2,9 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import paths from "../../paths/paths";
 import "./ErrorPage.css";
+import { lazy } from "react";
+
+export const ErrorPagePreview = lazy(() => import("./ErrorPage"));
 
 const ErrorPage = () => {
   const navigate = useNavigate();
