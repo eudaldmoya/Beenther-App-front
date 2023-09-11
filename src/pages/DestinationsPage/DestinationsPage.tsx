@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { lazy, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import DestinationsList from "../../components/DestinationsList/DestinationsList";
 import { auth } from "../../firebase";
@@ -8,6 +8,8 @@ import { loadDestinationsActionCreator } from "../../store/destinations/destinat
 import "./DestinationsPage.css";
 import Loading from "../../components/Loading/Loading";
 import FeedBack from "../../components/FeedBack/FeedBack";
+
+export const DestinationsPagePreview = lazy(() => import("./DestinationsPage"));
 
 const DestinationsPage = (): React.ReactElement => {
   const dispatch = useAppDispatch();

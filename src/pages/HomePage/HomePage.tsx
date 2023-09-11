@@ -6,6 +6,9 @@ import Button from "../../components/Button/Button";
 import { auth, githubProvider } from "../../firebase";
 import "./HomePage.css";
 import paths from "../../paths/paths";
+import { lazy } from "react";
+
+export const HomePagePreview = lazy(() => import("./HomePage"));
 
 const HomePage = () => {
   const [user] = useAuthState(auth);
