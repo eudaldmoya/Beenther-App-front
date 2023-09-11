@@ -3,6 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { auth } from "../../firebase";
 import { DestinationsPagePreview } from "../../pages/DestinationsPage/DestinationsPage";
+import { ErrorPagePreview } from "../../pages/ErrorPage/ErrorPage";
 import { HomePagePreview } from "../../pages/HomePage/HomePage";
 import paths from "../../paths/paths";
 import Header from "../Header/Header";
@@ -32,6 +33,14 @@ const App = (): React.ReactElement => {
                   <DestinationsPagePreview />
                 </Suspense>
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path={paths.wrong}
+            element={
+              <Suspense>
+                <ErrorPagePreview />
+              </Suspense>
             }
           />
           <Route path={paths.root} element={<Navigate to={paths.home} />} />

@@ -133,4 +133,32 @@ describe("Given an App component", () => {
       expect(heading).toBeInTheDocument();
     });
   });
+
+  describe("When the route is incorrect and the user clicks on 'Back To Homepage' button", () => {
+    test("Then it should show 'Welcome to Beenther!' inside a heading", async () => {
+      const headingText = "Welcome to Beenther!";
+      const buttonText = "Back To Homepage";
+      const incorrectPath = "/queque";
+
+      const authStateHookMock: Partial<AuthStateHook> = [undefined, undefined];
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      render(
+        <MemoryRouter initialEntries={[incorrectPath]}>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </MemoryRouter>,
+      );
+      screen.debug();
+      const button = await screen.findByRole("button", { name: buttonText });
+      await userEvent.click(button);
+
+      const heading = await screen.findByRole("heading", {
+        name: headingText,
+      });
+
+      expect(heading).toBeInTheDocument();
+    });
+  });
 });
