@@ -3,6 +3,7 @@ import "./DestinationCard.css";
 import deleteIcon from "../../assets/deleteIcon.svg";
 import { useAppDispatch } from "../../store";
 import { deleteDestinationActionCreator } from "../../store/destinations/destinationsSlice";
+import useDestinationsApi from "../../hook/useDestinationsApi";
 
 interface DestinationCardProps {
   destination: Destination;
@@ -12,8 +13,11 @@ const DestinationCard = ({
   destination: { _id, name, horizontalImageUrl, location, country },
 }: DestinationCardProps) => {
   const dispatch = useAppDispatch();
+  const { deleteDestinationApi } = useDestinationsApi();
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = async () => {
+    await deleteDestinationApi(_id);
+
     dispatch(deleteDestinationActionCreator(_id));
   };
 
