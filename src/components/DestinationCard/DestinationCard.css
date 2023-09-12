@@ -11,6 +11,9 @@
 }
 
 .card__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   position: absolute;
   width: 100%;
   z-index: 10;
@@ -28,6 +31,7 @@
 
 .card__title {
   font-size: 28px;
+  margin-top: 0;
 }
 
 .card__filter {
