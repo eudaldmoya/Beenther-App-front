@@ -1,21 +1,29 @@
 import { Destination } from "../../types";
 import "./DestinationCard.css";
 import deleteIcon from "../../assets/deleteIcon.svg";
+import { useAppDispatch } from "../../store";
+import { deleteDestinationActionCreator } from "../../store/destinations/destinationsSlice";
 
 interface DestinationCardProps {
   destination: Destination;
 }
 
 const DestinationCard = ({
-  destination: { name, horizontalImageUrl, location, country },
+  destination: { _id, name, horizontalImageUrl, location, country },
 }: DestinationCardProps) => {
+  const dispatch = useAppDispatch();
+
+  const handleDeleteClick = () => {
+    dispatch(deleteDestinationActionCreator(_id));
+  };
+
   return (
     <article className="card">
       <img
         src={horizontalImageUrl}
         alt={name}
-        height={350}
-        width={350}
+        height="350"
+        width="350"
         className="card__image"
       />
       <div className="card__filter"></div>
@@ -24,7 +32,7 @@ const DestinationCard = ({
           <h2 className="card__title">{name}</h2>
           <span className="card__location">{`${location}, ${country}`}</span>
         </div>
-        <button>
+        <button onClick={handleDeleteClick}>
           <img src={deleteIcon} alt="delete icon" height="42" width="42" />
         </button>
       </div>
