@@ -8,6 +8,7 @@ import { HomePagePreview } from "../../pages/HomePage/HomePage";
 import paths from "../../paths/paths";
 import Header from "../Header/Header";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import "./App.css";
 
 const App = (): React.ReactElement => {
   const [user] = useAuthState(auth);
