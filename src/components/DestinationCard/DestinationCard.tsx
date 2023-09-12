@@ -1,5 +1,6 @@
 import { Destination } from "../../types";
 import "./DestinationCard.css";
+import deleteIcon from "../../assets/deleteIcon.svg";
 
 interface DestinationCardProps {
   destination: Destination;
@@ -19,10 +20,13 @@ const DestinationCard = ({
       />
       <div className="card__filter"></div>
       <div className="card__info">
-        <h2 className="card__title">{name}</h2>
-        <div className="card__location">
-          <span>{`${location}, ${country}`}</span>
+        <div>
+          <h2 className="card__title">{name}</h2>
+          <span className="card__location">{`${location}, ${country}`}</span>
         </div>
+        <button>
+          <img src={deleteIcon} alt="delete icon" height="42" width="42" />
+        </button>
       </div>
     </article>
   );

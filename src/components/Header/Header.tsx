@@ -13,9 +13,9 @@ const Header = (): React.ReactElement => {
   return (
     <header className="header">
       <div className="title-container">
-        <img src={beentherLogo} alt="Beenther logo" width={130} height={23} />
+        <img src={beentherLogo} alt="Beenther logo" width="130" height="23" />
         <button onClick={logout}>
-          <img src={logoutIcon} alt="logout icon" />
+          <img src={logoutIcon} alt="logout icon" width="22" height="28" />
         </button>
       </div>
       <Navigation />
