@@ -9,6 +9,7 @@ import {
   showLoadingActionCreator,
 } from "../store/ui/uiSlice";
 import { Destination } from "../types";
+import { showFeedback } from "../utils/showFeedback";
 
 const useDestinationsApi = () => {
   const apiBaseUrl = import.meta.env.VITE_DESTINATIONS_API_URL;
@@ -33,9 +34,13 @@ const useDestinationsApi = () => {
 
       dispatch(hideLoadingActionCreator());
 
+      showFeedback("Destinations loaded", true);
+
       return destinations;
     } catch {
       dispatch(hideLoadingActionCreator());
+
+      showFeedback("Destinations could not load", false);
 
       throw new Error("Could not get the destinations");
     }
@@ -56,8 +61,12 @@ const useDestinationsApi = () => {
 
         const { message } = data;
 
+        showFeedback("Destination deleted!", true);
+
         return message;
       } catch {
+        showFeedback("Destination not deleted", false);
+
         throw new Error("Could not delete the destination");
       }
     },
