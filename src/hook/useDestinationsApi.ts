@@ -18,16 +18,15 @@ const useDestinationsApi = () => {
   const getDestinationsApi = useCallback(async () => {
     dispatch(showLoadingActionCreator());
 
+    const token = await user?.getIdToken();
+    const setConfig = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
     try {
-      const token = await user?.getIdToken();
-
-      const config = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
-
       const { data } = await axios.get<{ destinations: Destination[] }>(
         `${apiBaseUrl}${paths.destinations}`,
-        config,
+        setConfig,
       );
 
       const { destinations } = data;
@@ -42,7 +41,30 @@ const useDestinationsApi = () => {
     }
   }, [apiBaseUrl, dispatch, user]);
 
-  return { getDestinationsApi };
+  const deleteDestinationApi = useCallback(
+    async (id: string) => {
+      const token = await user?.getIdToken();
+      const setConfig = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
+      try {
+        const { data } = await axios.delete(
+          `${apiBaseUrl}${paths.destinations}/${id}`,
+          setConfig,
+        );
+
+        const { message } = data;
+
+        return message;
+      } catch {
+        throw new Error("Could not delete the destination");
+      }
+    },
+    [apiBaseUrl, user],
+  );
+
+  return { getDestinationsApi, deleteDestinationApi };
 };
 
 export default useDestinationsApi;
