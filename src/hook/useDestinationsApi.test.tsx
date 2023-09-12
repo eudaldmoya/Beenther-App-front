@@ -22,15 +22,20 @@ auth.useIdToken = vi.fn().mockReturnValue([user]);
 auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
 
 const wrapper = ({ children }: PropsWithChildren): React.ReactElement => {
-  const store = setupStore({ uiState: { isLoading: false } });
+  const store = setupStore({
+    uiState: { isLoading: false },
+    destinationsState: { destinations: destinationsMock },
+  });
 
   return <Provider store={store}>{children}</Provider>;
 };
 
 describe("Given a useDestinationsApi custom hook", () => {
-  describe("When calling a getDestinationsApi function", () => {
-    const { result } = renderHook(() => useDestinationsApi(), { wrapper });
-    const { getDestinationsApi } = result.current;
+  describe("When calling a getDestinationsApi function", async () => {
+    const { result } = renderHook(async () => await useDestinationsApi(), {
+      wrapper,
+    });
+    const { getDestinationsApi } = await result.current;
 
     test("Then it should return a list of destinations", async () => {
       const destinations = await getDestinationsApi();
@@ -46,6 +51,32 @@ describe("Given a useDestinationsApi custom hook", () => {
       const destinations = getDestinationsApi();
 
       expect(destinations).rejects.toThrowError(error);
+    });
+  });
+
+  describe("When calling a deleteDestination function with louiseId", async () => {
+    const { result } = renderHook(async () => await useDestinationsApi(), {
+      wrapper,
+    });
+    const { deleteDestinationApi } = await result.current;
+
+    test("Then it should return a message 'Destination deleted successfully'", async () => {
+      const expectedMessage = "Destination deleted successfully";
+      const id = "louiseId";
+      const message = await deleteDestinationApi(id);
+
+      expect(message).toStrictEqual(expectedMessage);
+    });
+
+    test("Then it should throw an error 'Could not delete the destination'", () => {
+      server.resetHandlers(...errorHandlers);
+
+      const id = "louiseId";
+      const error = new Error("Could not delete the destination");
+
+      const message = deleteDestinationApi(id);
+
+      expect(message).rejects.toThrowError(error);
     });
   });
 });
