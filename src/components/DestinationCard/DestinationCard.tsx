@@ -32,7 +32,7 @@ const DestinationCard = ({
           <h2 className="card__title">{name}</h2>
           <span className="card__location">{`${location}, ${country}`}</span>
         </div>
-        <button onClick={handleDeleteClick}>
+        <button onClick={handleDeleteClick} aria-label="delete-button">
           <img src={deleteIcon} alt="delete icon" height="42" width="42" />
         </button>
       </div>
