@@ -31,5 +31,7 @@ const destinationsSlice = createSlice({
 
 export const destinationsReducer = destinationsSlice.reducer;
 
-export const { loadDestinations: loadDestinationsActionCreator } =
-  destinationsSlice.actions;
+export const {
+  loadDestinations: loadDestinationsActionCreator,
+  deleteDestination: deleteDestinationActionCreator,
+} = destinationsSlice.actions;
