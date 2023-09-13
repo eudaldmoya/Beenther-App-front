@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
 
-export const showFeedback = (text: string, success: boolean) => {
+export const showFeedback = (message: string, success: boolean) => {
   success
-    ? toast.success(text, {
+    ? toast.success(message, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
@@ -13,7 +13,7 @@ export const showFeedback = (text: string, success: boolean) => {
         theme: "colored",
         className: "toast",
       })
-    : toast.error(text, {
+    : toast.error(message, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
