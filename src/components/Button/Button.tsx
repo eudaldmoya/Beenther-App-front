@@ -1,10 +1,11 @@
 import React, { PropsWithChildren } from "react";
 import "./Button.css";
 
-interface ButtonProps extends PropsWithChildren {
+interface ButtonProps
+  extends PropsWithChildren,
+    Partial<Omit<HTMLButtonElement, "children">> {
   className: string;
   actionOnClick?: () => void;
-  type?: "button" | "submit" | "reset" | undefined;
 }
 
 const Button = ({
@@ -12,9 +13,11 @@ const Button = ({
   className,
   children,
   type,
+  disabled,
 }: ButtonProps): React.ReactElement => {
   return (
     <button
+      disabled={disabled}
       onClick={actionOnClick}
       type={type}
       className={`button ${className}`}

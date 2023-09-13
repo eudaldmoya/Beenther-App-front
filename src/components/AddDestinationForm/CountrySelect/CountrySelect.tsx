@@ -1,10 +1,18 @@
-const CountrySelect = () => {
+interface CountrySelectProps {
+  handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+const CountrySelect = ({ handleSelectChange }: CountrySelectProps) => {
   return (
     <>
       <label htmlFor="country" className="form__label">
         Country:
       </label>
-      <select className="form__select" id="country">
+      <select
+        className="form__select"
+        id="country"
+        onChange={handleSelectChange}
+      >
         <option value="">country</option>
         <option value="Afghanistan">Afghanistan</option>
         <option value="Aland Islands">Aland Islands</option>
