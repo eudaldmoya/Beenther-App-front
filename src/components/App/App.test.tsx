@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Auth, User, signInWithPopup, signOut } from "firebase/auth";
-import auth, { AuthStateHook } from "react-firebase-hooks/auth";
+import auth, { AuthStateHook, IdTokenHook } from "react-firebase-hooks/auth";
 import { Provider } from "react-redux";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import { store } from "../../store";
@@ -21,7 +21,7 @@ vi.mock("firebase/auth", async () => {
 });
 
 const user: Partial<User> = {
-  displayName: "mike",
+  getIdToken: vi.fn().mockResolvedValue("token"),
 };
 
 describe("Given an App component", () => {
@@ -60,7 +60,9 @@ describe("Given an App component", () => {
         </MemoryRouter>,
       );
 
-      const loginButton = screen.getByRole("button", { name: buttonText });
+      const loginButton = await screen.findByRole("button", {
+        name: buttonText,
+      });
       await userEvent.click(loginButton);
 
       expect(signInWithPopup).toHaveBeenCalled();
@@ -74,6 +76,9 @@ describe("Given an App component", () => {
 
       const authStateHookMock: Partial<AuthStateHook> = [user as User];
       auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      const useIdTokenHookMock: Partial<IdTokenHook> = [user as User];
+      auth.useIdToken = vi.fn().mockReturnValue(useIdTokenHookMock);
 
       render(
         <MemoryRouter initialEntries={[destinationsRoute]}>
@@ -91,7 +96,7 @@ describe("Given an App component", () => {
   });
 
   describe("When the user is not logged in and it is not loading", () => {
-    test("Then it should show 'Welcome to Beenther!' inside a heading", () => {
+    test("Then it should show 'Welcome to Beenther!' inside a heading", async () => {
       const authStateHookMock: Partial<AuthStateHook> = [undefined, undefined];
       auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
 
@@ -103,7 +108,7 @@ describe("Given an App component", () => {
         </MemoryRouter>,
       );
 
-      const heading = screen.getByRole("heading", {
+      const heading = await screen.findByRole("heading", {
         name: "Welcome to Beenther!",
       });
 
@@ -112,11 +117,14 @@ describe("Given an App component", () => {
   });
 
   describe("When the user is logged in", () => {
-    test("Then it should show 'Your destinations' inside a heading", () => {
+    test("Then it should show 'Your destinations' inside a heading", async () => {
       const homeRoute = "/home";
       const headingText = "Your destinations";
       const authStateHookMock: Partial<AuthStateHook> = [user as User];
       auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      const useIdTokenHookMock: Partial<IdTokenHook> = [user as User];
+      auth.useIdToken = vi.fn().mockReturnValue(useIdTokenHookMock);
 
       render(
         <MemoryRouter initialEntries={[homeRoute]}>
@@ -126,7 +134,7 @@ describe("Given an App component", () => {
         </MemoryRouter>,
       );
 
-      const heading = screen.getByRole("heading", {
+      const heading = await screen.findByRole("heading", {
         name: headingText,
       });
 

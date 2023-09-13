@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
 import { User } from "firebase/auth";
-import auth, { AuthStateHook } from "react-firebase-hooks/auth";
+import auth, { AuthStateHook, IdTokenHook } from "react-firebase-hooks/auth";
 import { server } from "../mocks/server";
 import useDestinationsApi from "./useDestinationsApi";
 import { destinationsMock } from "../mocks/destinationsMock";
@@ -13,14 +13,6 @@ beforeEach(() => {
   vi.clearAllMocks();
 });
 
-const user: Partial<User> = {
-  getIdToken: vi.fn().mockResolvedValue("token"),
-};
-
-const authStateHookMock: Partial<AuthStateHook> = [user as User];
-auth.useIdToken = vi.fn().mockReturnValue([user]);
-auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
-
 const wrapper = ({ children }: PropsWithChildren): React.ReactElement => {
   const store = setupStore({
     uiState: { isLoading: false },
@@ -32,6 +24,14 @@ const wrapper = ({ children }: PropsWithChildren): React.ReactElement => {
 
 describe("Given a useDestinationsApi custom hook", () => {
   describe("When calling a getDestinationsApi function", async () => {
+    const user: Partial<User> = {
+      getIdToken: vi.fn().mockResolvedValue("token"),
+    };
+
+    const authStateHookMock: Partial<AuthStateHook> = [user as User];
+    auth.useIdToken = vi.fn().mockReturnValue([user]);
+    auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
     const { result } = renderHook(async () => await useDestinationsApi(), {
       wrapper,
     });
@@ -54,7 +54,36 @@ describe("Given a useDestinationsApi custom hook", () => {
     });
   });
 
-  describe("When calling a deleteDestination function with louiseId", async () => {
+  describe("When calling a getDestinationsApi function without a user", async () => {
+    test("Then it should throw an error 'You are not logged in'", async () => {
+      const authStateHookMock: Partial<AuthStateHook> = [undefined];
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      const idTokenHookMock: Partial<IdTokenHook> = [undefined];
+      auth.useIdToken = vi.fn().mockReturnValue(idTokenHookMock);
+
+      const error = new Error("Could not get the destinations");
+
+      const { result } = renderHook(async () => await useDestinationsApi(), {
+        wrapper,
+      });
+      const { getDestinationsApi } = await result.current;
+
+      const destinations = getDestinationsApi();
+
+      expect(destinations).rejects.toThrowError(error);
+    });
+  });
+
+  describe("When calling a deleteDestinationApi function with louiseId", async () => {
+    const user: Partial<User> = {
+      getIdToken: vi.fn().mockResolvedValue("token"),
+    };
+
+    const authStateHookMock: Partial<AuthStateHook> = [user as User];
+    auth.useIdToken = vi.fn().mockReturnValue([user]);
+    auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
     const { result } = renderHook(async () => await useDestinationsApi(), {
       wrapper,
     });
@@ -77,6 +106,27 @@ describe("Given a useDestinationsApi custom hook", () => {
       const message = deleteDestinationApi(id);
 
       expect(message).rejects.toThrowError(error);
+    });
+  });
+
+  describe("When calling a deleteDestinationApi function without a user", async () => {
+    test("Then it should throw an error 'Could not delete the destination'", async () => {
+      const authStateHookMock: Partial<AuthStateHook> = [undefined];
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      const idTokenHookMock: Partial<IdTokenHook> = [undefined];
+      auth.useIdToken = vi.fn().mockReturnValue(idTokenHookMock);
+
+      const error = new Error("Could not delete the destination");
+
+      const { result } = renderHook(async () => await useDestinationsApi(), {
+        wrapper,
+      });
+      const { deleteDestinationApi } = await result.current;
+
+      const destinations = deleteDestinationApi("");
+
+      expect(destinations).rejects.toThrowError(error);
     });
   });
 });
