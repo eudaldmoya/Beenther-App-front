@@ -28,3 +28,15 @@ export const destinationsMock: Destination[] = [
     user: "userId",
   },
 ];
+
+export const destinationMock: Destination = {
+  _id: "nuukId",
+  name: "Nuuk",
+  description: "Nice place",
+  location: "Somewhere",
+  country: "Greenland",
+  horizontalImageUrl: "himage.png",
+  verticalImageUrl: "vimage.png",
+  isVisited: false,
+  user: "userId",
+};
