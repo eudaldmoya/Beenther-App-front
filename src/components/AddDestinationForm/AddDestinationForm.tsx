@@ -33,13 +33,13 @@ const AddDestinationForm = () => {
         <label htmlFor="horizontalImageUrl" className="form__label">
           Horizontal image url:
         </label>
-        <input type="text" id="horizontalImageUrl" className="form__input" />
+        <input type="url" id="horizontalImageUrl" className="form__input" />
       </div>
       <div>
         <label htmlFor="verticalImageUrl" className="form__label">
           Vertical image url:
         </label>
-        <input type="text" id="verticalImageUrl" className="form__input" />
+        <input type="url" id="verticalImageUrl" className="form__input" />
       </div>
       <div className="form__button-container">
         <Button type="submit" className="form__button">
