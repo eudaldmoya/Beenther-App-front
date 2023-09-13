@@ -19,12 +19,19 @@ const useDestinationsApi = () => {
   const getDestinationsApi = useCallback(async () => {
     dispatch(showLoadingActionCreator());
 
-    const token = await user?.getIdToken();
-    const setConfig = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-
     try {
+      if (!user) {
+        dispatch(hideLoadingActionCreator());
+
+        throw new Error();
+      }
+
+      const token = await user.getIdToken();
+
+      const setConfig = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
       const { data } = await axios.get<{ destinations: Destination[] }>(
         `${apiBaseUrl}${paths.destinations}`,
         setConfig,
@@ -33,8 +40,6 @@ const useDestinationsApi = () => {
       const { destinations } = data;
 
       dispatch(hideLoadingActionCreator());
-
-      showFeedback("Destinations loaded", true);
 
       return destinations;
     } catch {
@@ -48,12 +53,16 @@ const useDestinationsApi = () => {
 
   const deleteDestinationApi = useCallback(
     async (id: string) => {
-      const token = await user?.getIdToken();
-      const setConfig = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
-
       try {
+        if (!user) {
+          throw new Error("You are not logged in");
+        }
+
+        const token = await user.getIdToken();
+        const setConfig = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+
         const { data } = await axios.delete(
           `${apiBaseUrl}${paths.destinations}/${id}`,
           setConfig,
