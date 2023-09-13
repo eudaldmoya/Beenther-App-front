@@ -45,7 +45,7 @@ const useDestinationsApi = () => {
     } catch {
       dispatch(hideLoadingActionCreator());
 
-      showFeedback("Destinations could not load", false);
+      showFeedback("Destinations could not load", "error");
 
       throw new Error("Could not get the destinations");
     }
@@ -70,11 +70,11 @@ const useDestinationsApi = () => {
 
         const { message } = data;
 
-        showFeedback("Destination deleted!", true);
+        showFeedback("Destination deleted!", "success");
 
         return message;
       } catch {
-        showFeedback("Destination not deleted", false);
+        showFeedback("Destination not deleted", "error");
 
         throw new Error("Could not delete the destination");
       }
