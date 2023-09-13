@@ -1,3 +1,4 @@
+import AddDestinationForm from "../../components/AddDestinationForm/AddDestinationForm";
 import FeedBack from "../../components/FeedBack/FeedBack";
 import "./AddDestinationPage.css";
 import { lazy } from "react";
@@ -11,6 +12,7 @@ const AddDestinationPage = () => {
     <>
       <FeedBack />
       <h1 className="title">Add a new destination</h1>
+      <AddDestinationForm />
     </>
   );
 };
