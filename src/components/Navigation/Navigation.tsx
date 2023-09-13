@@ -6,7 +6,7 @@ const Navigation = () => {
   return (
     <nav className="nav">
       <NavLink to={paths.destinations}>Destinations</NavLink>
-      <NavLink to={paths.root}>Add</NavLink>
+      <NavLink to={paths.add}>Add</NavLink>
     </nav>
   );
 };
