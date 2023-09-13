@@ -5,6 +5,8 @@ import { setupStore, store } from "../../store";
 import { DestinationsPagePreview } from "./DestinationsPage";
 import userEvent from "@testing-library/user-event";
 import { destinationsMock } from "../../mocks/destinationsMock";
+import { User } from "firebase/auth";
+import auth, { AuthStateHook } from "react-firebase-hooks/auth";
 
 describe("Given a DestinationsPage page", () => {
   describe("When it is rendered", () => {
@@ -29,6 +31,12 @@ describe("Given a DestinationsPage page", () => {
     test("Then it should not show the 'Lake Louise' card", async () => {
       const labelText = "delete-button";
       const headingText = "Lake Louise";
+      const user: Partial<User> = {
+        getIdToken: vi.fn().mockResolvedValue("token"),
+      };
+      const authStateHookMock: Partial<AuthStateHook> = [user as User];
+      auth.useIdToken = vi.fn().mockReturnValue([user]);
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
       const store = setupStore({
         destinationsState: { destinations: destinationsMock },
       });
