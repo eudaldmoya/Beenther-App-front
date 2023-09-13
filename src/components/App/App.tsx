@@ -9,6 +9,7 @@ import paths from "../../paths/paths";
 import Header from "../Header/Header";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
+import { AddDestinationPagePreview } from "../../pages/AddDestinationPage/AddDestinationPage";
 
 const App = (): React.ReactElement => {
   const [user] = useAuthState(auth);
@@ -32,6 +33,16 @@ const App = (): React.ReactElement => {
               <ProtectedRoute>
                 <Suspense>
                   <DestinationsPagePreview />
+                </Suspense>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={paths.add}
+            element={
+              <ProtectedRoute>
+                <Suspense>
+                  <AddDestinationPagePreview />
                 </Suspense>
               </ProtectedRoute>
             }
