@@ -3,11 +3,8 @@ import "./AddDestinationForm.css";
 import Button from "../Button/Button";
 
 const AddDestinationForm = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="form">
       <div>
         <label htmlFor="name" className="form__label">
           Name:
