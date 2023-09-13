@@ -159,7 +159,7 @@ describe("Given an App component", () => {
         </MemoryRouter>,
       );
 
-      const button = await screen.findByRole("button", { name: buttonText });
+      const button = await screen.findByRole("link", { name: buttonText });
       await userEvent.click(button);
 
       const heading = await screen.findByRole("heading", {

@@ -1,26 +1,19 @@
-import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button/Button";
+import { lazy } from "react";
+import { NavLink } from "react-router-dom";
 import paths from "../../paths/paths";
 import "./ErrorPage.css";
-import { lazy } from "react";
 
 export const ErrorPagePreview = lazy(() => import("./ErrorPage"));
 
 const ErrorPage = () => {
-  const navigate = useNavigate();
-
-  const navigateHome = () => {
-    navigate(paths.home);
-  };
-
   return (
     <div className="error">
       <span className="error__code">404</span>
       <span className="error__text">Oh no!</span>
       <h1 className="error__title">Destination not found</h1>
-      <Button actionOnClick={navigateHome} className="error__button">
+      <NavLink to={paths.home} className="button error__button">
         Back To Homepage
-      </Button>
+      </NavLink>
     </div>
   );
 };
