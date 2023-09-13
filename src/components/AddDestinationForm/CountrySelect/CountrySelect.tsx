@@ -1,18 +1,14 @@
 interface CountrySelectProps {
-  handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const CountrySelect = ({ handleSelectChange }: CountrySelectProps) => {
+const CountrySelect = ({ handleChange: handleChange }: CountrySelectProps) => {
   return (
     <>
       <label htmlFor="country" className="form__label">
         Country:
       </label>
-      <select
-        className="form__select"
-        id="country"
-        onChange={handleSelectChange}
-      >
+      <select className="form__select" id="country" onChange={handleChange}>
         <option value="">country</option>
         <option value="Afghanistan">Afghanistan</option>
         <option value="Aland Islands">Aland Islands</option>

@@ -17,23 +17,11 @@ const AddDestinationForm = () => {
   });
   const [disabled, setDisabled] = useState(true);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewDestination({
-      ...newDestination,
-      [event.target.id]: event.target.value,
-    });
-  };
-
-  const handleTextAreaChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
+  const handleChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
-    setNewDestination({
-      ...newDestination,
-      [event.target.id]: event.target.value,
-    });
-  };
-
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setNewDestination({
       ...newDestination,
       [event.target.id]: event.target.value,
@@ -73,7 +61,7 @@ const AddDestinationForm = () => {
         />
       </div>
       <div>
-        <CountrySelect handleSelectChange={handleSelectChange} />
+        <CountrySelect handleChange={handleChange} />
       </div>
       <div>
         <label htmlFor="description" className="form__label">
@@ -82,7 +70,7 @@ const AddDestinationForm = () => {
         <textarea
           id="description"
           className="form__textarea"
-          onChange={handleTextAreaChange}
+          onChange={handleChange}
         />
       </div>
       <div>
