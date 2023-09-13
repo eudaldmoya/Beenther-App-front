@@ -158,7 +158,7 @@ describe("Given an App component", () => {
           </Provider>
         </MemoryRouter>,
       );
-      screen.debug();
+
       const button = await screen.findByRole("button", { name: buttonText });
       await userEvent.click(button);
 
