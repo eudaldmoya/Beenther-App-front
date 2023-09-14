@@ -1,10 +1,13 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Auth, User, signInWithPopup, signOut } from "firebase/auth";
 import auth, { AuthStateHook, IdTokenHook } from "react-firebase-hooks/auth";
 import { Provider } from "react-redux";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
-import { store } from "../../store";
+import { destinationsMock } from "../../mocks/destinationsMock";
+import { formHandlers } from "../../mocks/handlers";
+import { server } from "../../mocks/server";
+import { setupStore, store } from "../../store";
 import App from "./App";
 
 beforeEach(() => {
@@ -167,6 +170,73 @@ describe("Given an App component", () => {
       });
 
       expect(heading).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user creates a destination 'Nuuk' in the AddDestinationPage", () => {
+    test("Then it should show the DestinationsPage with 'Nuuk' inside a heading", async () => {
+      server.resetHandlers(...formHandlers);
+
+      const nameLabel = "Name:";
+      const locationLabel = "Location:";
+      const countryLabel = "Country:";
+      const descriptionLabel = "Description:";
+      const hImageLabel = "Horizontal image url:";
+      const vImageLabel = "Vertical image url:";
+
+      const name = "Nuuk";
+      const location = "Somewhere";
+      const country = "Greenland";
+      const description = "Nice place";
+      const hImageUrl = "https://www.himg.png";
+      const vImageUrl = "https://www.vimg.png";
+
+      const store = setupStore({
+        destinationsState: { destinations: destinationsMock },
+      });
+
+      const authStateHookMock: Partial<AuthStateHook> = [user as User];
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      const useIdTokenHookMock: Partial<IdTokenHook> = [user as User];
+      auth.useIdToken = vi.fn().mockReturnValue(useIdTokenHookMock);
+
+      const addRoute = "/add";
+      const buttonText = "Add Destination";
+      const headingText = "Nuuk";
+
+      render(
+        <MemoryRouter initialEntries={[addRoute]}>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </MemoryRouter>,
+      );
+
+      const nameInput = await screen.findByLabelText(nameLabel);
+      const locationInput = await screen.findByLabelText(locationLabel);
+      const countryInput = await screen.findByLabelText(countryLabel);
+      const descriptionInput = await screen.findByLabelText(descriptionLabel);
+      const hImageInput = await screen.findByLabelText(hImageLabel);
+      const vImageInput = await screen.findByLabelText(vImageLabel);
+
+      await userEvent.type(nameInput, name);
+      await userEvent.type(locationInput, location);
+      await userEvent.selectOptions(countryInput, country);
+      await userEvent.type(descriptionInput, description);
+      await userEvent.type(hImageInput, hImageUrl);
+      await userEvent.type(vImageInput, vImageUrl);
+
+      const button = await screen.findByRole("button", { name: buttonText });
+      await userEvent.click(button);
+
+      await waitFor(async () => {
+        const heading = await screen.findByRole("heading", {
+          name: headingText,
+        });
+
+        expect(heading).toBeInTheDocument();
+      });
     });
   });
 });

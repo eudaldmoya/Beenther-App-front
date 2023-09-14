@@ -1,5 +1,9 @@
 import { rest } from "msw";
-import { destinationMock, destinationsMock } from "./destinationsMock";
+import {
+  destinationMock,
+  destinationsMock,
+  destinationsMockForm,
+} from "./destinationsMock";
 import paths from "../paths/paths";
 
 export const handlers = [
@@ -47,6 +51,24 @@ export const errorHandlers = [
     `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}`,
     (_req, res, ctx) => {
       return res(ctx.status(500, "Could not create the destination"));
+    },
+  ),
+];
+
+export const formHandlers = [
+  rest.post(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}`,
+    (_req, res, ctx) => {
+      return res(ctx.status(201), ctx.json({ destination: destinationMock }));
+    },
+  ),
+  rest.get(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}`,
+    (_req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({ destinations: destinationsMockForm }),
+      );
     },
   ),
 ];

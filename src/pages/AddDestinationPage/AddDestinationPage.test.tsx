@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Provider } from "react-redux";
 import { store } from "../../store";
 import { AddDestinationPagePreview } from "./AddDestinationPage";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Given an AddDestinationPage page", () => {
   describe("When it is rendered", () => {
@@ -11,9 +12,12 @@ describe("Given an AddDestinationPage page", () => {
 
       render(
         <Provider store={store}>
-          <Suspense>
-            <AddDestinationPagePreview />
-          </Suspense>
+          <BrowserRouter>
+            <Suspense>
+              <AddDestinationPagePreview />
+            </Suspense>
+          </BrowserRouter>
+          ,
         </Provider>,
       );
 
