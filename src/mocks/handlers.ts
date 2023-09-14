@@ -13,6 +13,17 @@ export const handlers = [
       return res(ctx.status(200), ctx.json({ destinations: destinationsMock }));
     },
   ),
+  rest.get(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}/${
+      destinationsMock[0]._id
+    }`,
+    (_req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({ destination: destinationsMock[0] }),
+      );
+    },
+  ),
   rest.delete(
     `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}/${
       destinationsMock[0]._id
@@ -37,6 +48,14 @@ export const errorHandlers = [
     `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}`,
     (_req, res, ctx) => {
       return res(ctx.status(404, "Could not get the destinations"));
+    },
+  ),
+  rest.get(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}/${
+      destinationsMock[0]._id
+    }`,
+    (_req, res, ctx) => {
+      return res(ctx.status(404, "Could not get the destination"));
     },
   ),
   rest.delete(
