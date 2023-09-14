@@ -11,6 +11,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 import { AddDestinationPagePreview } from "../../pages/AddDestinationPage/AddDestinationPage";
 import FeedBack from "../FeedBack/FeedBack";
+import { DestinationDetailPagePreview } from "../../pages/DestinationDetailPage/DestinationDetailPage";
 
 const App = (): React.ReactElement => {
   const [user] = useAuthState(auth);
@@ -45,6 +46,16 @@ const App = (): React.ReactElement => {
               <ProtectedRoute>
                 <Suspense>
                   <AddDestinationPagePreview />
+                </Suspense>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={paths.detail}
+            element={
+              <ProtectedRoute>
+                <Suspense>
+                  <DestinationDetailPagePreview />
                 </Suspense>
               </ProtectedRoute>
             }

@@ -3,6 +3,7 @@ const paths = {
   home: "/home",
   destinations: "/destinations",
   add: "/add",
+  detail: "/destinations/:destinationId",
   wrong: "*",
 };
 
