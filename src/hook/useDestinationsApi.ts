@@ -112,7 +112,36 @@ const useDestinationsApi = () => {
     [apiBaseUrl, user],
   );
 
-  return { getDestinationsApi, deleteDestinationApi, addDestinationApi };
+  const getDestinationByIdApi = async (id: string) => {
+    try {
+      if (!user) {
+        throw new Error("You are not logged in");
+      }
+
+      const token = await user.getIdToken();
+      const setConfig = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
+      const { data } = await axios.get(
+        `${apiBaseUrl}${paths.destinations}/${id}`,
+        setConfig,
+      );
+
+      const { destination } = data;
+
+      return destination;
+    } catch {
+      throw new Error("Could not get the destination");
+    }
+  };
+
+  return {
+    getDestinationsApi,
+    deleteDestinationApi,
+    addDestinationApi,
+    getDestinationByIdApi,
+  };
 };
 
 export default useDestinationsApi;
