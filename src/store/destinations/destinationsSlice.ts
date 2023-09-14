@@ -33,6 +33,13 @@ const destinationsSlice = createSlice({
       ...currentDestinationsState,
       destinations: [...currentDestinationsState.destinations, action.payload],
     }),
+    loadSelectedDestination: (
+      currenDestinationsState: DestinationsState,
+      action: PayloadAction<Destination>,
+    ): DestinationsState => ({
+      ...currenDestinationsState,
+      selectedDestination: action.payload,
+    }),
   },
 });
 
@@ -42,4 +49,5 @@ export const {
   loadDestinations: loadDestinationsActionCreator,
   deleteDestination: deleteDestinationActionCreator,
   addDestination: addDestinationActionCreator,
+  loadSelectedDestination: loadSelectedDestinationActionCreator,
 } = destinationsSlice.actions;
