@@ -49,4 +49,5 @@ export const {
   loadDestinations: loadDestinationsActionCreator,
   deleteDestination: deleteDestinationActionCreator,
   addDestination: addDestinationActionCreator,
+  loadSelectedDestination: loadSelectedDestinationActionCreator,
 } = destinationsSlice.actions;
