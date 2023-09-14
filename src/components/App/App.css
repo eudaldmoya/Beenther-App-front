@@ -2,3 +2,8 @@
   padding-top: 160px;
   padding-bottom: 90px;
 }
+
+.toast {
+  border-radius: 8px;
+  margin: 20px;
+}

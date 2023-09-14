@@ -1,4 +1,4 @@
-import CountrySelect from "./CountrySelect/CountrySelect";
+import CountrySelect from "./CountrySelect";
 import "./AddDestinationForm.css";
 import Button from "../Button/Button";
 import { useState, useEffect } from "react";

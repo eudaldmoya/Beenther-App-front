@@ -1,13 +1,13 @@
 import { lazy } from "react";
+import { useNavigate } from "react-router-dom";
 import AddDestinationForm from "../../components/AddDestinationForm/AddDestinationForm";
-import FeedBack from "../../components/FeedBack/FeedBack";
-import "./AddDestinationPage.css";
 import useDestinationsApi from "../../hook/useDestinationsApi";
-import { Destination } from "../../types";
+import paths from "../../paths/paths";
 import { useAppDispatch } from "../../store";
 import { addDestinationActionCreator } from "../../store/destinations/destinationsSlice";
-import paths from "../../paths/paths";
-import { useNavigate } from "react-router-dom";
+import { Destination } from "../../types";
+import "./AddDestinationPage.css";
+import { showFeedback } from "../../showFeedbackFunction/showFeedback";
 
 export const AddDestinationPagePreview = lazy(
   () => import("./AddDestinationPage"),
@@ -25,12 +25,13 @@ const AddDestinationPage = () => {
 
     dispatch(addDestinationActionCreator(destination));
 
+    showFeedback("Destination created", "success");
+
     navigate(paths.destinations);
   };
 
   return (
     <>
-      <FeedBack />
       <h1 className="title">Add a new destination</h1>
       <AddDestinationForm actionOnSubmit={actionOnSubmit} />
     </>
