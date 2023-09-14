@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import AddDestinationForm from "./AddDestinationForm";
 import userEvent from "@testing-library/user-event";
 
-const handleSubmit = vi.fn();
+const actionOnSubmit = vi.fn();
 
 describe("Given an AddDestinationForm component", () => {
   const nameLabel = "Name:";
@@ -21,7 +21,7 @@ describe("Given an AddDestinationForm component", () => {
 
   describe("When it is rendered", () => {
     test("Then it should show the inputs for name, description, location, country, verticalImageUrl and horizontalImageUrl", () => {
-      render(<AddDestinationForm handleSubmit={handleSubmit} />);
+      render(<AddDestinationForm actionOnSubmit={actionOnSubmit} />);
 
       const nameInput = screen.getByLabelText(nameLabel);
       const locationInput = screen.getByLabelText(locationLabel);
@@ -41,7 +41,7 @@ describe("Given an AddDestinationForm component", () => {
 
   describe("When the user type 'Angkor Wat', 'Siem Reap', 'Cambodia', 'Nice place', 'himg.png', 'vimg.png'", () => {
     test("Then the input should show 'Angkor Wat', 'Siem Reap', 'Cambodia', 'Nice place', 'https://www.himg.png', 'https://www.vimg.png'", async () => {
-      render(<AddDestinationForm handleSubmit={handleSubmit} />);
+      render(<AddDestinationForm actionOnSubmit={actionOnSubmit} />);
 
       const nameInput = screen.getByLabelText(nameLabel);
       const locationInput = screen.getByLabelText(locationLabel);
@@ -70,7 +70,7 @@ describe("Given an AddDestinationForm component", () => {
     test("Then it should show a disabled button", () => {
       const buttonText = "Add Destination";
 
-      render(<AddDestinationForm handleSubmit={handleSubmit} />);
+      render(<AddDestinationForm actionOnSubmit={actionOnSubmit} />);
 
       const button = screen.getByRole("button", { name: buttonText });
 
@@ -82,7 +82,7 @@ describe("Given an AddDestinationForm component", () => {
     test("Then it should show an enabled button", async () => {
       const buttonText = "Add Destination";
 
-      render(<AddDestinationForm handleSubmit={handleSubmit} />);
+      render(<AddDestinationForm actionOnSubmit={actionOnSubmit} />);
 
       const nameInput = screen.getByLabelText(nameLabel);
       const locationInput = screen.getByLabelText(locationLabel);
@@ -101,6 +101,33 @@ describe("Given an AddDestinationForm component", () => {
       const button = screen.getByRole("button", { name: buttonText });
 
       expect(button).toBeEnabled();
+    });
+  });
+
+  describe("When inputs are filled and the user submits the form", () => {
+    test("Then the action on submit function should be called", async () => {
+      const buttonText = "Add Destination";
+
+      render(<AddDestinationForm actionOnSubmit={actionOnSubmit} />);
+
+      const nameInput = screen.getByLabelText(nameLabel);
+      const locationInput = screen.getByLabelText(locationLabel);
+      const countryInput = screen.getByLabelText(countryLabel);
+      const descriptionInput = screen.getByLabelText(descriptionLabel);
+      const hImageInput = screen.getByLabelText(hImageLabel);
+      const vImageInput = screen.getByLabelText(vImageLabel);
+
+      await userEvent.type(nameInput, name);
+      await userEvent.type(locationInput, location);
+      await userEvent.selectOptions(countryInput, country);
+      await userEvent.type(descriptionInput, description);
+      await userEvent.type(hImageInput, hImageUrl);
+      await userEvent.type(vImageInput, vImageUrl);
+
+      const button = screen.getByRole("button", { name: buttonText });
+      await userEvent.click(button);
+
+      expect(actionOnSubmit).toHaveBeenCalled();
     });
   });
 });

@@ -6,6 +6,8 @@ import useDestinationsApi from "../../hook/useDestinationsApi";
 import { Destination } from "../../types";
 import { useAppDispatch } from "../../store";
 import { addDestinationActionCreator } from "../../store/destinations/destinationsSlice";
+import paths from "../../paths/paths";
+import { useNavigate } from "react-router-dom";
 
 export const AddDestinationPagePreview = lazy(
   () => import("./AddDestinationPage"),
@@ -14,6 +16,7 @@ export const AddDestinationPagePreview = lazy(
 const AddDestinationPage = () => {
   const { addDestinationApi } = useDestinationsApi();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const actionOnSubmit = async (
     newDestination: Omit<Destination, "_id" | "user">,
@@ -21,6 +24,8 @@ const AddDestinationPage = () => {
     const destination = await addDestinationApi(newDestination);
 
     dispatch(addDestinationActionCreator(destination));
+
+    navigate(paths.destinations);
   };
 
   return (
