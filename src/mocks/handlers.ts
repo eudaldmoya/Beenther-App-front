@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { destinationsMock } from "./destinationsMock";
+import { destinationMock, destinationsMock } from "./destinationsMock";
 import paths from "../paths/paths";
 
 export const handlers = [
@@ -20,6 +20,12 @@ export const handlers = [
       );
     },
   ),
+  rest.post(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}`,
+    (_req, res, ctx) => {
+      return res(ctx.status(201), ctx.json({ destination: destinationMock }));
+    },
+  ),
 ];
 
 export const errorHandlers = [
@@ -35,6 +41,12 @@ export const errorHandlers = [
     }`,
     (_req, res, ctx) => {
       return res(ctx.status(404, "Could not delete the destination"));
+    },
+  ),
+  rest.post(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}`,
+    (_req, res, ctx) => {
+      return res(ctx.status(500, "Could not create the destination"));
     },
   ),
 ];

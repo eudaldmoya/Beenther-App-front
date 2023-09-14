@@ -6,7 +6,7 @@ import { Destination } from "../../types";
 
 const AddDestinationForm = () => {
   const [newDestination, setNewDestination] = useState<
-    Omit<Destination, "_id" | "isVisited" | "user">
+    Omit<Destination, "_id" | "user">
   >({
     name: "",
     location: "",
@@ -14,6 +14,7 @@ const AddDestinationForm = () => {
     description: "",
     horizontalImageUrl: "",
     verticalImageUrl: "",
+    isVisited: false,
   });
   const [disabled, setDisabled] = useState(true);
 
