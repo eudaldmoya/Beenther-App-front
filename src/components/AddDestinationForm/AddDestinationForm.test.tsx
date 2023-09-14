@@ -98,7 +98,7 @@ describe("Given an AddDestinationForm component", () => {
       await userEvent.type(hImageInput, hImageUrl);
       await userEvent.type(vImageInput, vImageUrl);
 
-      const button = screen.getByRole("button", { name: buttonText });
+      const button = await screen.findByRole("button", { name: buttonText });
 
       expect(button).toBeEnabled();
     });

@@ -26,7 +26,7 @@ const DestinationDetailPage = () => {
 
   return (
     <>
-      <h1>{selectedDestination?.name}</h1>
+      <h1 className="title">{selectedDestination?.name}</h1>
     </>
   );
 };
