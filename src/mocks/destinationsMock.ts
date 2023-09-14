@@ -40,3 +40,13 @@ export const destinationMock: Destination = {
   isVisited: false,
   user: "userId",
 };
+
+export const sentDestinationMock: Omit<Destination, "_id" | "user"> = {
+  name: "Nuuk",
+  description: "Nice place",
+  location: "Somewhere",
+  country: "Greenland",
+  horizontalImageUrl: "himage.png",
+  verticalImageUrl: "vimage.png",
+  isVisited: false,
+};

@@ -104,7 +104,7 @@ const useDestinationsApi = () => {
 
         return destination;
       } catch {
-        throw new Error("Could not create the new destination");
+        throw new Error("Could not create the destination");
       }
     },
     [apiBaseUrl, user],

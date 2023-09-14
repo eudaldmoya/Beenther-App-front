@@ -3,7 +3,11 @@ import { User } from "firebase/auth";
 import auth, { AuthStateHook, IdTokenHook } from "react-firebase-hooks/auth";
 import { server } from "../mocks/server";
 import useDestinationsApi from "./useDestinationsApi";
-import { destinationsMock } from "../mocks/destinationsMock";
+import {
+  destinationMock,
+  destinationsMock,
+  sentDestinationMock,
+} from "../mocks/destinationsMock";
 import { errorHandlers } from "../mocks/handlers";
 import { PropsWithChildren } from "react";
 import { setupStore } from "../store";
@@ -127,6 +131,57 @@ describe("Given a useDestinationsApi custom hook", () => {
       const destinations = deleteDestinationApi("");
 
       expect(destinations).rejects.toThrowError(error);
+    });
+  });
+
+  describe("When calling an addDestinationApi function with a destination 'Nuuk'", async () => {
+    const user: Partial<User> = {
+      getIdToken: vi.fn().mockResolvedValue("token"),
+    };
+
+    const authStateHookMock: Partial<AuthStateHook> = [user as User];
+    auth.useIdToken = vi.fn().mockReturnValue([user]);
+    auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+    const { result } = renderHook(async () => await useDestinationsApi(), {
+      wrapper,
+    });
+    const { addDestinationApi } = await result.current;
+    test("Then it should return a new destination 'Nuuk'", async () => {
+      const newDestination = await addDestinationApi(sentDestinationMock);
+
+      expect(newDestination).toStrictEqual(destinationMock);
+    });
+
+    test("Then it should return an error 'Could not create the destination'", () => {
+      server.resetHandlers(...errorHandlers);
+
+      const error = new Error("Could not create the destination");
+
+      const newDestination = addDestinationApi(sentDestinationMock);
+
+      expect(newDestination).rejects.toThrowError(error);
+    });
+  });
+
+  describe("When calling an addDestinationApi function without a user", () => {
+    test("Then it should throw an error 'Could not create the destination'", async () => {
+      const authStateHookMock: Partial<AuthStateHook> = [undefined];
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      const idTokenHookMock: Partial<IdTokenHook> = [undefined];
+      auth.useIdToken = vi.fn().mockReturnValue(idTokenHookMock);
+
+      const error = new Error("Could not create the destination");
+
+      const { result } = renderHook(async () => await useDestinationsApi(), {
+        wrapper,
+      });
+      const { addDestinationApi } = await result.current;
+
+      const newDestination = addDestinationApi(sentDestinationMock);
+
+      expect(newDestination).rejects.toThrowError(error);
     });
   });
 });
