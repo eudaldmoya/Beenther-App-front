@@ -2,7 +2,7 @@ interface CountrySelectProps {
   handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const CountrySelect = ({ handleChange: handleChange }: CountrySelectProps) => {
+const CountrySelect = ({ handleChange }: CountrySelectProps) => {
   return (
     <>
       <label htmlFor="country" className="form__label">
