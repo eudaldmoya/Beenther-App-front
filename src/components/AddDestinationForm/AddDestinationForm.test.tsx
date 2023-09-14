@@ -2,6 +2,8 @@ import { render, screen } from "@testing-library/react";
 import AddDestinationForm from "./AddDestinationForm";
 import userEvent from "@testing-library/user-event";
 
+const handleSubmit = vi.fn();
+
 describe("Given an AddDestinationForm component", () => {
   const nameLabel = "Name:";
   const locationLabel = "Location:";
@@ -19,7 +21,7 @@ describe("Given an AddDestinationForm component", () => {
 
   describe("When it is rendered", () => {
     test("Then it should show the inputs for name, description, location, country, verticalImageUrl and horizontalImageUrl", () => {
-      render(<AddDestinationForm />);
+      render(<AddDestinationForm handleSubmit={handleSubmit} />);
 
       const nameInput = screen.getByLabelText(nameLabel);
       const locationInput = screen.getByLabelText(locationLabel);
@@ -39,7 +41,7 @@ describe("Given an AddDestinationForm component", () => {
 
   describe("When the user type 'Angkor Wat', 'Siem Reap', 'Cambodia', 'Nice place', 'himg.png', 'vimg.png'", () => {
     test("Then the input should show 'Angkor Wat', 'Siem Reap', 'Cambodia', 'Nice place', 'https://www.himg.png', 'https://www.vimg.png'", async () => {
-      render(<AddDestinationForm />);
+      render(<AddDestinationForm handleSubmit={handleSubmit} />);
 
       const nameInput = screen.getByLabelText(nameLabel);
       const locationInput = screen.getByLabelText(locationLabel);
@@ -68,7 +70,7 @@ describe("Given an AddDestinationForm component", () => {
     test("Then it should show a disabled button", () => {
       const buttonText = "Add Destination";
 
-      render(<AddDestinationForm />);
+      render(<AddDestinationForm handleSubmit={handleSubmit} />);
 
       const button = screen.getByRole("button", { name: buttonText });
 
@@ -80,7 +82,7 @@ describe("Given an AddDestinationForm component", () => {
     test("Then it should show an enabled button", async () => {
       const buttonText = "Add Destination";
 
-      render(<AddDestinationForm />);
+      render(<AddDestinationForm handleSubmit={handleSubmit} />);
 
       const nameInput = screen.getByLabelText(nameLabel);
       const locationInput = screen.getByLabelText(locationLabel);

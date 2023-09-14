@@ -4,7 +4,11 @@ import Button from "../Button/Button";
 import { useState, useEffect } from "react";
 import { Destination } from "../../types";
 
-const AddDestinationForm = () => {
+interface AddDestinationFormProps {
+  actionOnSubmit: (newDestination: Omit<Destination, "_id" | "user">) => void;
+}
+
+const AddDestinationForm = ({ actionOnSubmit }: AddDestinationFormProps) => {
   const [newDestination, setNewDestination] = useState<
     Omit<Destination, "_id" | "user">
   >({
@@ -29,6 +33,12 @@ const AddDestinationForm = () => {
     });
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    actionOnSubmit(newDestination);
+  };
+
   useEffect(() => {
     setDisabled(
       !Object.values(newDestination).every((value) => {
@@ -38,7 +48,7 @@ const AddDestinationForm = () => {
   }, [newDestination]);
 
   return (
-    <form className="form">
+    <form className="form" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="name" className="form__label">
           Name:
