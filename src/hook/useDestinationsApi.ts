@@ -82,7 +82,35 @@ const useDestinationsApi = () => {
     [apiBaseUrl, user],
   );
 
-  return { getDestinationsApi, deleteDestinationApi };
+  const addDestinationApi = useCallback(
+    async (newDestination: Omit<Destination, "_id" | "user">) => {
+      try {
+        if (!user) {
+          throw new Error("You are not logged in");
+        }
+
+        const token = await user.getIdToken();
+        const setConfig = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+
+        const { data } = await axios.post<{ destination: Destination }>(
+          `${apiBaseUrl}${paths.destinations}`,
+          newDestination,
+          setConfig,
+        );
+
+        const { destination } = data;
+
+        return destination;
+      } catch {
+        throw new Error("Could not create the new destination");
+      }
+    },
+    [apiBaseUrl, user],
+  );
+
+  return { getDestinationsApi, deleteDestinationApi, addDestinationApi };
 };
 
 export default useDestinationsApi;
