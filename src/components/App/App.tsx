@@ -10,6 +10,7 @@ import Header from "../Header/Header";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 import { AddDestinationPagePreview } from "../../pages/AddDestinationPage/AddDestinationPage";
+import FeedBack from "../FeedBack/FeedBack";
 
 const App = (): React.ReactElement => {
   const [user] = useAuthState(auth);
@@ -17,6 +18,7 @@ const App = (): React.ReactElement => {
   return (
     <>
       {user && <Header />}
+      <FeedBack />
       <main className="main-container">
         <Routes>
           <Route

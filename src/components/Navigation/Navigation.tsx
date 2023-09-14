@@ -5,8 +5,12 @@ import { NavLink } from "react-router-dom";
 const Navigation = () => {
   return (
     <nav className="nav">
-      <NavLink to={paths.destinations}>Destinations</NavLink>
-      <NavLink to={paths.add}>Add</NavLink>
+      <NavLink to={paths.destinations} className="nav__link">
+        Destinations
+      </NavLink>
+      <NavLink to={paths.add} className="nav__link">
+        Add
+      </NavLink>
     </nav>
   );
 };

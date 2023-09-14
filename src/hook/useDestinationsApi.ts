@@ -9,7 +9,7 @@ import {
   showLoadingActionCreator,
 } from "../store/ui/uiSlice";
 import { Destination } from "../types";
-import { showFeedback } from "../utils/showFeedback";
+import { showFeedback } from "../showFeedbackFunction/showFeedback";
 
 const useDestinationsApi = () => {
   const apiBaseUrl = import.meta.env.VITE_DESTINATIONS_API_URL;
@@ -104,6 +104,8 @@ const useDestinationsApi = () => {
 
         return destination;
       } catch {
+        showFeedback("Couldn't create the destination", "error");
+
         throw new Error("Could not create the destination");
       }
     },

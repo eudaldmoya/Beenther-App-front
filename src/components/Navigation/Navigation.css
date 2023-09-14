@@ -7,3 +7,11 @@
   font-size: 18px;
   padding: 20px;
 }
+
+.nav__link.active {
+  border-bottom: 3px solid black;
+}
+
+.nav__link {
+  padding-bottom: 4px;
+}
