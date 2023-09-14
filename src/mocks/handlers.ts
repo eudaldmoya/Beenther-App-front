@@ -91,3 +91,17 @@ export const formHandlers = [
     },
   ),
 ];
+
+export const detailHandlers = [
+  rest.get(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}/${
+      destinationsMock[0]._id
+    }`,
+    (_req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({ destination: destinationsMock[0] }),
+      );
+    },
+  ),
+];

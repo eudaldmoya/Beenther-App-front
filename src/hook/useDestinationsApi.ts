@@ -112,29 +112,32 @@ const useDestinationsApi = () => {
     [apiBaseUrl, user],
   );
 
-  const getDestinationByIdApi = async (id: string) => {
-    try {
-      if (!user) {
-        throw new Error("You are not logged in");
+  const getDestinationByIdApi = useCallback(
+    async (id: string) => {
+      try {
+        if (!user) {
+          throw new Error("You are not logged in");
+        }
+
+        const token = await user.getIdToken();
+        const setConfig = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+
+        const { data } = await axios.get(
+          `${apiBaseUrl}${paths.destinations}/${id}`,
+          setConfig,
+        );
+
+        const { destination } = data;
+
+        return destination;
+      } catch {
+        throw new Error("Could not get the destination");
       }
-
-      const token = await user.getIdToken();
-      const setConfig = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
-
-      const { data } = await axios.get(
-        `${apiBaseUrl}${paths.destinations}/${id}`,
-        setConfig,
-      );
-
-      const { destination } = data;
-
-      return destination;
-    } catch {
-      throw new Error("Could not get the destination");
-    }
-  };
+    },
+    [apiBaseUrl, user],
+  );
 
   return {
     getDestinationsApi,
