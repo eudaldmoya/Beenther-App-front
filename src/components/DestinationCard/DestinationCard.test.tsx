@@ -3,6 +3,7 @@ import DestinationCard from "./DestinationCard";
 import { destinationsMock } from "../../mocks/destinationsMock";
 import { Provider } from "react-redux";
 import { store } from "../../store";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Given a DestinationCard component", () => {
   describe("When it receives a destination with name 'Lake Louise'", () => {
@@ -10,9 +11,12 @@ describe("Given a DestinationCard component", () => {
       const text = "Lake Louise";
 
       render(
-        <Provider store={store}>
-          <DestinationCard destination={destinationsMock[0]} />
-        </Provider>,
+        <BrowserRouter>
+          <Provider store={store}>
+            <DestinationCard destination={destinationsMock[0]} />
+          </Provider>
+          ,
+        </BrowserRouter>,
       );
 
       const heading = screen.getByRole("heading", { name: text });
@@ -24,9 +28,12 @@ describe("Given a DestinationCard component", () => {
       const altText = "Lake Louise";
 
       render(
-        <Provider store={store}>
-          <DestinationCard destination={destinationsMock[0]} />{" "}
-        </Provider>,
+        <BrowserRouter>
+          <Provider store={store}>
+            <DestinationCard destination={destinationsMock[0]} />{" "}
+          </Provider>
+          ,
+        </BrowserRouter>,
       );
 
       const image = screen.getByAltText(altText);

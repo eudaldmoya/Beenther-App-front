@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { destinationsMock } from "../../mocks/destinationsMock";
 import { setupStore } from "../../store";
 import DestinationsList from "./DestinationsList";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Given a DestinationsList component", () => {
   describe("When it is rendered", () => {
@@ -12,9 +13,12 @@ describe("Given a DestinationsList component", () => {
       });
 
       render(
-        <Provider store={store}>
-          <DestinationsList />
-        </Provider>,
+        <BrowserRouter>
+          <Provider store={store}>
+            <DestinationsList />
+          </Provider>
+          ,
+        </BrowserRouter>,
       );
 
       destinationsMock.forEach((destination) => {

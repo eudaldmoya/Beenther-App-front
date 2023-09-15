@@ -239,4 +239,44 @@ describe("Given an App component", () => {
       });
     });
   });
+
+  describe("When the user clicks on the destination title 'Lake Louise'", () => {
+    test("Then it should navigate to its detail and show 'Lake Louise' inside a heading", async () => {
+      const destinations = "/destinations";
+      const detail = "/destinations/louiseId";
+      const headingText = "Lake Louise";
+
+      const store = setupStore({
+        destinationsState: { destinations: destinationsMock },
+      });
+
+      const authStateHookMock: Partial<AuthStateHook> = [user as User];
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      const useIdTokenHookMock: Partial<IdTokenHook> = [user as User];
+      auth.useIdToken = vi.fn().mockReturnValue(useIdTokenHookMock);
+
+      render(
+        <MemoryRouter initialEntries={[destinations, detail]} initialIndex={0}>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </MemoryRouter>,
+      );
+
+      const link = (
+        await screen.findByRole("heading", { name: headingText })
+      ).closest("a")!;
+
+      await userEvent.click(link);
+
+      await waitFor(async () => {
+        const heading = await screen.findByRole("heading", {
+          name: headingText,
+        });
+
+        expect(heading).toBeInTheDocument();
+      });
+    });
+  });
 });
