@@ -7,6 +7,7 @@ import userEvent from "@testing-library/user-event";
 import { destinationsMock } from "../../mocks/destinationsMock";
 import { User } from "firebase/auth";
 import auth, { AuthStateHook } from "react-firebase-hooks/auth";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Given a DestinationsPage page", () => {
   describe("When it is rendered", () => {
@@ -42,11 +43,14 @@ describe("Given a DestinationsPage page", () => {
       });
 
       render(
-        <Provider store={store}>
-          <Suspense>
-            <DestinationsPagePreview />
-          </Suspense>
-        </Provider>,
+        <BrowserRouter>
+          <Provider store={store}>
+            <Suspense>
+              <DestinationsPagePreview />
+            </Suspense>
+          </Provider>
+          ,
+        </BrowserRouter>,
       );
 
       const heading = await screen.findByRole("heading", { name: headingText });
