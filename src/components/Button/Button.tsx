@@ -4,7 +4,6 @@ import "./Button.css";
 interface ButtonProps
   extends PropsWithChildren,
     Partial<Omit<HTMLButtonElement, "children">> {
-  className: string;
   actionOnClick?: () => void;
 }
 
