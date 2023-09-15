@@ -133,17 +133,45 @@ const useDestinationsApi = () => {
 
         return destination;
       } catch {
+        showFeedback("Could not load details", "error");
+
         throw new Error("Could not get the destination");
       }
     },
     [apiBaseUrl, user],
   );
 
+  const modifyDestinationApi = async (id: string, isVisited: boolean) => {
+    try {
+      if (!user) {
+        throw new Error("You are not logged in");
+      }
+
+      const token = await user.getIdToken();
+      const setConfig = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
+      const { data } = await axios.patch(
+        `${apiBaseUrl}${paths.destinations}/${id}`,
+        isVisited,
+        setConfig,
+      );
+
+      const { destination } = data;
+
+      return destination;
+    } catch {
+      throw new Error("Could not modify the destination");
+    }
+  };
+
   return {
     getDestinationsApi,
     deleteDestinationApi,
     addDestinationApi,
     getDestinationByIdApi,
+    modifyDestinationApi,
   };
 };
 
