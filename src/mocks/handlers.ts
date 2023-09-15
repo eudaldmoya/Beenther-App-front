@@ -41,6 +41,17 @@ export const handlers = [
       return res(ctx.status(201), ctx.json({ destination: destinationMock }));
     },
   ),
+  rest.patch(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}/${
+      destinationsMock[0]._id
+    }`,
+    (_req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({ destination: { ...destinationsMock[0], isVisited: true } }),
+      );
+    },
+  ),
 ];
 
 export const errorHandlers = [
@@ -70,6 +81,14 @@ export const errorHandlers = [
     `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}`,
     (_req, res, ctx) => {
       return res(ctx.status(500, "Could not create the destination"));
+    },
+  ),
+  rest.patch(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}/${
+      destinationsMock[0]._id
+    }`,
+    (_req, res, ctx) => {
+      return res(ctx.status(500, "Could not modify the destination"));
     },
   ),
 ];

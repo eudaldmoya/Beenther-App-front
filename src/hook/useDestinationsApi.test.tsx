@@ -239,4 +239,68 @@ describe("Given a useDestinationsApi custom hook", () => {
       expect(selectedDestination).rejects.toThrowError(error);
     });
   });
+
+  describe("When calling a modifyDestinationApi function with id 'louiseId'", async () => {
+    const user: Partial<User> = {
+      getIdToken: vi.fn().mockResolvedValue("token"),
+    };
+
+    const authStateHookMock: Partial<AuthStateHook> = [user as User];
+    auth.useIdToken = vi.fn().mockReturnValue([user]);
+    auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+    const { result } = renderHook(async () => await useDestinationsApi(), {
+      wrapper,
+    });
+    const { modifyDestinationApi } = await result.current;
+
+    const id = "louiseId";
+
+    test("Then it should return the destination with isVisited:true", async () => {
+      const modifiedDestination = await modifyDestinationApi(
+        id,
+        destinationsMock[0].isVisited,
+      );
+
+      expect(modifiedDestination).toHaveProperty("isVisited", true);
+    });
+
+    test("Then it should throw an error 'Could not modify the destination'", () => {
+      server.resetHandlers(...errorHandlers);
+
+      const error = new Error("Could not modify the destination");
+
+      const selectedDestination = modifyDestinationApi(
+        id,
+        destinationsMock[0].isVisited,
+      );
+
+      expect(selectedDestination).rejects.toThrowError(error);
+    });
+  });
+
+  describe("When calling a modifyDestinationApi function without a user", () => {
+    test("Then it should throw an error 'Could not modify the destination'", async () => {
+      const id = "louiseId";
+      const authStateHookMock: Partial<AuthStateHook> = [undefined];
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      const idTokenHookMock: Partial<IdTokenHook> = [undefined];
+      auth.useIdToken = vi.fn().mockReturnValue(idTokenHookMock);
+
+      const error = new Error("Could not modify the destination");
+
+      const { result } = renderHook(async () => await useDestinationsApi(), {
+        wrapper,
+      });
+      const { modifyDestinationApi } = await result.current;
+
+      const selectedDestination = modifyDestinationApi(
+        id,
+        destinationsMock[0].isVisited,
+      );
+
+      expect(selectedDestination).rejects.toThrowError(error);
+    });
+  });
 });
