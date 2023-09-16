@@ -2,20 +2,26 @@ import { Destination } from "../../types";
 import "./DestinationCard.css";
 import deleteIcon from "../../assets/deleteIcon.svg";
 import { useAppDispatch } from "../../store";
-import { deleteDestinationActionCreator } from "../../store/destinations/destinationsSlice";
+import {
+  deleteDestinationActionCreator,
+  modifyDestinationActionCreator,
+} from "../../store/destinations/destinationsSlice";
 import useDestinationsApi from "../../hook/useDestinationsApi";
 import { NavLink } from "react-router-dom";
 import paths from "../../paths/paths";
+import Button from "../Button/Button";
+import landing from "../../assets/landingIcon.svg";
+import takeoff from "../../assets/takeoffIcon.svg";
 
 interface DestinationCardProps {
   destination: Destination;
 }
 
 const DestinationCard = ({
-  destination: { _id, name, horizontalImageUrl, location, country },
+  destination: { _id, name, horizontalImageUrl, location, country, isVisited },
 }: DestinationCardProps) => {
   const dispatch = useAppDispatch();
-  const { deleteDestinationApi } = useDestinationsApi();
+  const { deleteDestinationApi, modifyDestinationApi } = useDestinationsApi();
 
   const handleDeleteClick = async () => {
     await deleteDestinationApi(_id);
@@ -23,8 +29,26 @@ const DestinationCard = ({
     dispatch(deleteDestinationActionCreator(_id));
   };
 
+  const handleToggleClick = async () => {
+    const modifiedDestination = await modifyDestinationApi(_id, { isVisited });
+
+    dispatch(modifyDestinationActionCreator(modifiedDestination));
+  };
+
   return (
     <article className="card">
+      <Button
+        actionOnClick={handleToggleClick}
+        className={
+          isVisited ? "card__button selected" : "card__button unselected"
+        }
+      >
+        {isVisited ? "Visited" : "Pending"}
+        <img
+          src={isVisited ? landing : takeoff}
+          alt={isVisited ? "Visited" : "Pending"}
+        />
+      </Button>
       <img
         src={horizontalImageUrl}
         alt={name}
