@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import DestinationCard from "./DestinationCard";
-import { destinationsMock } from "../../mocks/destinationsMock";
 import { Provider } from "react-redux";
-import { store } from "../../store";
 import { BrowserRouter } from "react-router-dom";
+import { destinationsMock } from "../../mocks/destinationsMock";
+import { store } from "../../store";
+import DestinationCard from "./DestinationCard";
 
 describe("Given a DestinationCard component", () => {
   describe("When it receives a destination with name 'Lake Louise'", () => {

@@ -257,10 +257,9 @@ describe("Given a useDestinationsApi custom hook", () => {
     const id = "louiseId";
 
     test("Then it should return the destination with isVisited:true", async () => {
-      const modifiedDestination = await modifyDestinationApi(
-        id,
-        destinationsMock[0].isVisited,
-      );
+      const modifiedDestination = await modifyDestinationApi(id, {
+        isVisited: destinationsMock[0].isVisited,
+      });
 
       expect(modifiedDestination).toHaveProperty("isVisited", true);
     });
@@ -270,10 +269,9 @@ describe("Given a useDestinationsApi custom hook", () => {
 
       const error = new Error("Could not modify the destination");
 
-      const selectedDestination = modifyDestinationApi(
-        id,
-        destinationsMock[0].isVisited,
-      );
+      const selectedDestination = modifyDestinationApi(id, {
+        isVisited: destinationsMock[0].isVisited,
+      });
 
       expect(selectedDestination).rejects.toThrowError(error);
     });
@@ -295,10 +293,9 @@ describe("Given a useDestinationsApi custom hook", () => {
       });
       const { modifyDestinationApi } = await result.current;
 
-      const selectedDestination = modifyDestinationApi(
-        id,
-        destinationsMock[0].isVisited,
-      );
+      const selectedDestination = modifyDestinationApi(id, {
+        isVisited: destinationsMock[0].isVisited,
+      });
 
       expect(selectedDestination).rejects.toThrowError(error);
     });
