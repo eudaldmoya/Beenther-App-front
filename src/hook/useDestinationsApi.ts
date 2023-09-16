@@ -54,7 +54,10 @@ const useDestinationsApi = () => {
   const deleteDestinationApi = useCallback(
     async (id: string) => {
       try {
+        dispatch(showLoadingActionCreator());
         if (!user) {
+          dispatch(hideLoadingActionCreator());
+
           throw new Error("You are not logged in");
         }
 
@@ -70,16 +73,20 @@ const useDestinationsApi = () => {
 
         const { message } = data;
 
+        dispatch(hideLoadingActionCreator());
+
         showFeedback("Destination deleted!", "success");
 
         return message;
       } catch {
+        dispatch(hideLoadingActionCreator());
+
         showFeedback("Destination not deleted", "error");
 
         throw new Error("Could not delete the destination");
       }
     },
-    [apiBaseUrl, user],
+    [apiBaseUrl, dispatch, user],
   );
 
   const addDestinationApi = useCallback(
@@ -115,10 +122,12 @@ const useDestinationsApi = () => {
   const getDestinationByIdApi = useCallback(
     async (id: string) => {
       try {
+        dispatch(showLoadingActionCreator());
         if (!user) {
+          dispatch(hideLoadingActionCreator());
+
           throw new Error("You are not logged in");
         }
-
         const token = await user.getIdToken();
         const setConfig = {
           headers: { Authorization: `Bearer ${token}` },
@@ -131,14 +140,18 @@ const useDestinationsApi = () => {
 
         const { destination } = data;
 
+        dispatch(hideLoadingActionCreator());
+
         return destination;
       } catch {
+        dispatch(hideLoadingActionCreator());
+
         showFeedback("Could not load details", "error");
 
         throw new Error("Could not get the destination");
       }
     },
-    [apiBaseUrl, user],
+    [apiBaseUrl, dispatch, user],
   );
 
   const modifyDestinationApi = async (

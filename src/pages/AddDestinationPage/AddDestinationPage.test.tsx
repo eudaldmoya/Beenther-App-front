@@ -17,7 +17,6 @@ describe("Given an AddDestinationPage page", () => {
               <AddDestinationPagePreview />
             </Suspense>
           </BrowserRouter>
-          ,
         </Provider>,
       );
 

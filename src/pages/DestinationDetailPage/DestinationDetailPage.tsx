@@ -1,5 +1,7 @@
 import { lazy, useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useParams } from "react-router-dom";
+import { auth } from "../../firebase";
 import useDestinationsApi from "../../hook/useDestinationsApi";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { loadSelectedDestinationActionCreator } from "../../store/destinations/destinationsSlice";
@@ -9,6 +11,7 @@ export const DestinationDetailPagePreview = lazy(
 );
 
 const DestinationDetailPage = () => {
+  const [user] = useAuthState(auth);
   const { getDestinationByIdApi } = useDestinationsApi();
   const dispatch = useAppDispatch();
   const { destinationId } = useParams();
@@ -18,11 +21,15 @@ const DestinationDetailPage = () => {
 
   useEffect(() => {
     (async () => {
-      const selectedDestination = await getDestinationByIdApi(destinationId!);
+      if (user && destinationId) {
+        const selectedDestinationApi = await getDestinationByIdApi(
+          destinationId,
+        );
 
-      dispatch(loadSelectedDestinationActionCreator(selectedDestination));
+        dispatch(loadSelectedDestinationActionCreator(selectedDestinationApi));
+      }
     })();
-  }, [destinationId, dispatch, getDestinationByIdApi]);
+  }, [destinationId, dispatch, getDestinationByIdApi, user]);
 
   return (
     <>

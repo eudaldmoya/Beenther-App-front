@@ -29,6 +29,7 @@ describe("Given a DestinationDetailPage page", () => {
           destinations: [],
           selectedDestination: destinationsMock[0],
         },
+        uiState: { isLoading: false },
       });
       const path = "/destinations/louiseId";
       const headingText = "Lake Louise";
