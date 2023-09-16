@@ -165,6 +165,8 @@ const useDestinationsApi = () => {
 
       return destination;
     } catch {
+      showFeedback("Couldn't modify destination", "error");
+
       throw new Error("Could not modify the destination");
     }
   };
