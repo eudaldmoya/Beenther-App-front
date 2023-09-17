@@ -1,8 +1,16 @@
-# Boilerplate for React apps
+# Beenther!
 
-With Vite + TypeScript
+## Save and mark your favourite places in the planet
 
-## Scripts
+With Beenther you can do the following:
+
+- List your destinations
+- Show destination details with description, location, image...
+- Add new destinations
+- Mark them as pending or visited
+- Delete destinations
+
+### Useful commands
 
 `npm run dev`: starts a development server
 
