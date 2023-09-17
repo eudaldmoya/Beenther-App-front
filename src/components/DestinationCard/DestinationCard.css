@@ -52,6 +52,7 @@ article > .card__button {
   right: 10px;
   display: flex;
   padding: 14px 10px;
+  width: 135px;
 }
 
 article > .unselected {

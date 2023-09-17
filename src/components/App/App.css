@@ -1,6 +1,7 @@
 .main-container {
-  padding-top: 160px;
-  padding-bottom: 90px;
+  padding: 160px 20px 90px 20px;
+  margin: auto;
+  max-width: 800px;
 }
 
 .toast {

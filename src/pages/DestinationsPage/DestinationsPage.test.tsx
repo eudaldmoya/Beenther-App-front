@@ -2,12 +2,12 @@ import { render, screen } from "@testing-library/react";
 import { Suspense } from "react";
 import { Provider } from "react-redux";
 import { setupStore, store } from "../../store";
-import { DestinationsPagePreview } from "./DestinationsPage";
 import userEvent from "@testing-library/user-event";
 import { destinationsMock } from "../../mocks/destinationsMock";
 import { User } from "firebase/auth";
 import auth, { AuthStateHook } from "react-firebase-hooks/auth";
 import { BrowserRouter } from "react-router-dom";
+import { DestinationsPagePreview } from "../../paths/lazyPages";
 
 describe("Given a DestinationsPage page", () => {
   describe("When it is rendered", () => {

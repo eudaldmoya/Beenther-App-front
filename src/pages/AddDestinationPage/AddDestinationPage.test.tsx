@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { Suspense } from "react";
 import { Provider } from "react-redux";
-import { store } from "../../store";
-import { AddDestinationPagePreview } from "./AddDestinationPage";
 import { BrowserRouter } from "react-router-dom";
+import { AddDestinationPagePreview } from "../../paths/lazyPages";
+import { store } from "../../store";
 
 describe("Given an AddDestinationPage page", () => {
   describe("When it is rendered", () => {

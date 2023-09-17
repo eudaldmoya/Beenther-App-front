@@ -1,17 +1,12 @@
-import { lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import AddDestinationForm from "../../components/AddDestinationForm/AddDestinationForm";
 import useDestinationsApi from "../../hook/useDestinationsApi";
 import paths from "../../paths/paths";
+import { showFeedback } from "../../showFeedbackFunction/showFeedback";
 import { useAppDispatch } from "../../store";
 import { addDestinationActionCreator } from "../../store/destinations/destinationsSlice";
 import { Destination } from "../../types";
 import "./AddDestinationPage.css";
-import { showFeedback } from "../../showFeedbackFunction/showFeedback";
-
-export const AddDestinationPagePreview = lazy(
-  () => import("./AddDestinationPage"),
-);
 
 const AddDestinationPage = () => {
   const { addDestinationApi } = useDestinationsApi();

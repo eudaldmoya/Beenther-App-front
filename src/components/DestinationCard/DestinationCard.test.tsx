@@ -13,7 +13,7 @@ describe("Given a DestinationCard component", () => {
       render(
         <BrowserRouter>
           <Provider store={store}>
-            <DestinationCard destination={destinationsMock[0]} />
+            <DestinationCard destination={destinationsMock[0]} isLazy={false} />
           </Provider>
           ,
         </BrowserRouter>,
@@ -30,7 +30,7 @@ describe("Given a DestinationCard component", () => {
       render(
         <BrowserRouter>
           <Provider store={store}>
-            <DestinationCard destination={destinationsMock[0]} />{" "}
+            <DestinationCard destination={destinationsMock[0]} isLazy={false} />{" "}
           </Provider>
           ,
         </BrowserRouter>,

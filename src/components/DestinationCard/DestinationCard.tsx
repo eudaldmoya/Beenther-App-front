@@ -15,10 +15,12 @@ import "./DestinationCard.css";
 
 interface DestinationCardProps {
   destination: Destination;
+  isLazy: boolean;
 }
 
 const DestinationCard = ({
   destination: { _id, name, horizontalImageUrl, location, country, isVisited },
+  isLazy,
 }: DestinationCardProps) => {
   const dispatch = useAppDispatch();
   const { deleteDestinationApi, modifyDestinationApi } = useDestinationsApi();
@@ -48,6 +50,8 @@ const DestinationCard = ({
           <img
             src={isVisited ? landing : takeoff}
             alt={isVisited ? "Visited" : "Pending"}
+            width="24"
+            height="24"
           />
         </Button>
         <img
@@ -56,6 +60,7 @@ const DestinationCard = ({
           height="350"
           width="350"
           className="card__image"
+          {...(isLazy && { loading: "lazy" })}
         />
         <div className="card__filter"></div>
         <div className="card__info">

@@ -8,7 +8,7 @@ import { destinationsMock } from "../../mocks/destinationsMock";
 import { detailHandlers } from "../../mocks/handlers";
 import { server } from "../../mocks/server";
 import { setupStore } from "../../store";
-import { DestinationDetailPagePreview } from "./DestinationDetailPage";
+import { DestinationDetailPagePreview } from "../../paths/lazyPages";
 
 const user: Partial<User> = {
   getIdToken: vi.fn().mockResolvedValue("token"),

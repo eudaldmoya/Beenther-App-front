@@ -9,10 +9,11 @@ const DestinationsList = () => {
 
   return (
     <ul className="destinations-list">
-      {destinations.map((destination) => {
+      {destinations.map((destination, destinationPosition) => {
+        const isLazy = destinationPosition >= 2;
         return (
           <li key={destination._id}>
-            <DestinationCard destination={destination} />
+            <DestinationCard destination={destination} isLazy={isLazy} />
           </li>
         );
       })}
