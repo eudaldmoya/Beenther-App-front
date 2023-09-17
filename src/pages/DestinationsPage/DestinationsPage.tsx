@@ -7,12 +7,17 @@ import useDestinationsApi from "../../hook/useDestinationsApi";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { loadDestinationsActionCreator } from "../../store/destinations/destinationsSlice";
 import "./DestinationsPage.css";
+import { NavLink } from "react-router-dom";
+import paths from "../../paths/paths";
 
 const DestinationsPage = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const { getDestinationsApi } = useDestinationsApi();
   const [user] = useAuthState(auth);
   const isLoading = useAppSelector((state) => state.uiState.isLoading);
+  const destination = useAppSelector(
+    (state) => state.destinationsState.destinations,
+  );
 
   useEffect(() => {
     (async () => {
@@ -26,8 +31,21 @@ const DestinationsPage = (): React.ReactElement => {
 
   return (
     <>
-      <h1 className="title">Your destinations</h1>
-      {isLoading ? <Loading /> : <DestinationsList />}
+      {destination.length === 0 ? (
+        <>
+          <h1 className="title">You have no destinations yet</h1>
+          <div className="add-link-container">
+            <NavLink to={paths.add} className="button add-link">
+              Add Destination
+            </NavLink>
+          </div>
+        </>
+      ) : (
+        <>
+          <h1 className="title">Your destinations</h1>
+          {isLoading ? <Loading /> : <DestinationsList />}
+        </>
+      )}
     </>
   );
 };
