@@ -29,7 +29,7 @@ const HomePage = () => {
       <div className="login-button">
         <Button className="active" actionOnClick={login}>
           Sign in{" "}
-          <img src={githubLogo} alt="Github logo" width={20} height={20} />
+          <img src={githubLogo} alt="Github logo" width="20" height="20" />
         </Button>
       </div>
     </>
