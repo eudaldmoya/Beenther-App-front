@@ -45,6 +45,7 @@ const destinationsSlice = createSlice({
       action: PayloadAction<Destination>,
     ): DestinationsState => ({
       ...currentDestinationsState,
+      selectedDestination: action.payload,
       destinations: currentDestinationsState.destinations.map((destination) =>
         destination._id === action.payload._id ? action.payload : destination,
       ),

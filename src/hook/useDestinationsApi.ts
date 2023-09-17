@@ -154,35 +154,35 @@ const useDestinationsApi = () => {
     [apiBaseUrl, dispatch, user],
   );
 
-  const modifyDestinationApi = async (
-    id: string,
-    destinationProperty: Pick<Destination, "isVisited">,
-  ) => {
-    try {
-      if (!user) {
-        throw new Error("You are not logged in");
+  const modifyDestinationApi = useCallback(
+    async (id: string, destinationProperty: Pick<Destination, "isVisited">) => {
+      try {
+        if (!user) {
+          throw new Error("You are not logged in");
+        }
+
+        const token = await user.getIdToken();
+        const setConfig = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+
+        const { data } = await axios.patch(
+          `${apiBaseUrl}${paths.destinations}/${id}`,
+          destinationProperty,
+          setConfig,
+        );
+
+        const { destination } = data;
+
+        return destination;
+      } catch {
+        showFeedback("Couldn't modify destination", "error");
+
+        throw new Error("Could not modify the destination");
       }
-
-      const token = await user.getIdToken();
-      const setConfig = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
-
-      const { data } = await axios.patch(
-        `${apiBaseUrl}${paths.destinations}/${id}`,
-        destinationProperty,
-        setConfig,
-      );
-
-      const { destination } = data;
-
-      return destination;
-    } catch {
-      showFeedback("Couldn't modify destination", "error");
-
-      throw new Error("Could not modify the destination");
-    }
-  };
+    },
+    [apiBaseUrl, user],
+  );
 
   return {
     getDestinationsApi,
