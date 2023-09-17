@@ -1,25 +1,29 @@
 import { render, screen } from "@testing-library/react";
-import { Suspense } from "react";
-import { Provider } from "react-redux";
-import { setupStore, store } from "../../store";
 import userEvent from "@testing-library/user-event";
-import { destinationsMock } from "../../mocks/destinationsMock";
 import { User } from "firebase/auth";
+import { Suspense } from "react";
 import auth, { AuthStateHook } from "react-firebase-hooks/auth";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { destinationsMock } from "../../mocks/destinationsMock";
 import { DestinationsPagePreview } from "../../paths/lazyPages";
+import { setupStore } from "../../store";
 
 describe("Given a DestinationsPage page", () => {
   describe("When it is rendered", () => {
-    test("Then it should show 'Your destinations' inside a heading", async () => {
-      const title = "Your destinations";
+    test("Then it should show 'You have no destinations yet' inside a heading", async () => {
+      const title = "You have no destinations yet";
+      const store = setupStore({ destinationsState: { destinations: [] } });
 
       render(
-        <Provider store={store}>
-          <Suspense>
-            <DestinationsPagePreview />
-          </Suspense>
-        </Provider>,
+        <BrowserRouter>
+          <Provider store={store}>
+            <Suspense>
+              <DestinationsPagePreview />
+            </Suspense>
+          </Provider>
+          ,
+        </BrowserRouter>,
       );
 
       const heading = await screen.findByRole("heading", { name: title });
