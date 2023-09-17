@@ -4,11 +4,8 @@ import { Navigate } from "react-router-dom";
 import githubLogo from "../../assets/githubLogo.svg";
 import Button from "../../components/Button/Button";
 import { auth, githubProvider } from "../../firebase";
-import "./HomePage.css";
 import paths from "../../paths/paths";
-import { lazy } from "react";
-
-export const HomePagePreview = lazy(() => import("./HomePage"));
+import "./HomePage.css";
 
 const HomePage = () => {
   const [user] = useAuthState(auth);

@@ -2,16 +2,18 @@ import { Suspense } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { auth } from "../../firebase";
-import { DestinationsPagePreview } from "../../pages/DestinationsPage/DestinationsPage";
-import { ErrorPagePreview } from "../../pages/ErrorPage/ErrorPage";
-import { HomePagePreview } from "../../pages/HomePage/HomePage";
 import paths from "../../paths/paths";
 import Header from "../Header/Header";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
-import { AddDestinationPagePreview } from "../../pages/AddDestinationPage/AddDestinationPage";
 import FeedBack from "../FeedBack/FeedBack";
-import { DestinationDetailPagePreview } from "../../pages/DestinationDetailPage/DestinationDetailPage";
+import {
+  AddDestinationPagePreview,
+  DestinationDetailPagePreview,
+  DestinationsPagePreview,
+  ErrorPagePreview,
+  HomePagePreview,
+} from "../../paths/lazyPages";
 
 const App = (): React.ReactElement => {
   const [user] = useAuthState(auth);

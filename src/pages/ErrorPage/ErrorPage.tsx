@@ -1,9 +1,6 @@
-import { lazy } from "react";
 import { NavLink } from "react-router-dom";
 import paths from "../../paths/paths";
 import "./ErrorPage.css";
-
-export const ErrorPagePreview = lazy(() => import("./ErrorPage"));
 
 const ErrorPage = () => {
   return (

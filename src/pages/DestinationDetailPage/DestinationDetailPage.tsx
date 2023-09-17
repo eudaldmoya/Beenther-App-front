@@ -1,14 +1,10 @@
-import { lazy, useEffect } from "react";
+import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useParams } from "react-router-dom";
 import { auth } from "../../firebase";
 import useDestinationsApi from "../../hook/useDestinationsApi";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { loadSelectedDestinationActionCreator } from "../../store/destinations/destinationsSlice";
-
-export const DestinationDetailPagePreview = lazy(
-  () => import("./DestinationDetailPage"),
-);
 
 const DestinationDetailPage = () => {
   const [user] = useAuthState(auth);
