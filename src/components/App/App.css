@@ -2,6 +2,7 @@
   padding: 160px 20px 90px 20px;
   margin: auto;
   max-width: 800px;
+  min-height: 100vh;
 }
 
 .toast {
