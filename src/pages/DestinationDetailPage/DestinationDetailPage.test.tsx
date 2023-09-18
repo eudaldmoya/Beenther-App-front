@@ -9,6 +9,7 @@ import { detailHandlers } from "../../mocks/handlers";
 import { server } from "../../mocks/server";
 import { setupStore } from "../../store";
 import { DestinationDetailPagePreview } from "../../paths/lazyPages";
+import userEvent from "@testing-library/user-event";
 
 const user: Partial<User> = {
   getIdToken: vi.fn().mockResolvedValue("token"),
@@ -56,6 +57,56 @@ describe("Given a DestinationDetailPage page", () => {
       });
 
       expect(heading).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user clicks on the modify destination button with text 'Pending'", () => {
+    test("Then it should toggle and show the text 'Visited'", async () => {
+      server.resetHandlers(...detailHandlers);
+      const authStateHookMock: Partial<AuthStateHook> = [user as User];
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      const useIdTokenHookMock: Partial<IdTokenHook> = [user as User];
+      auth.useIdToken = vi.fn().mockReturnValue(useIdTokenHookMock);
+
+      const store = setupStore({
+        destinationsState: {
+          destinations: [],
+          selectedDestination: destinationsMock[0],
+        },
+        uiState: { isLoading: false },
+      });
+      const path = "/destinations/louiseId";
+      const expectedButtonText = "Visited Visited";
+      const buttonText = "Pending Pending";
+
+      render(
+        <MemoryRouter initialEntries={[path]}>
+          <Routes>
+            <Route
+              path="/destinations/:destinationId"
+              element={
+                <Provider store={store}>
+                  <Suspense>
+                    <DestinationDetailPagePreview />
+                  </Suspense>
+                </Provider>
+              }
+            ></Route>
+          </Routes>
+        </MemoryRouter>,
+      );
+
+      const toggleButton = await screen.findByRole("button", {
+        name: buttonText,
+      });
+      await userEvent.click(toggleButton);
+
+      const button = await screen.findByRole("button", {
+        name: expectedButtonText,
+      });
+
+      expect(button).toBeInTheDocument();
     });
   });
 });
