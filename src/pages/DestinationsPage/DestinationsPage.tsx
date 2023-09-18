@@ -31,7 +31,7 @@ const DestinationsPage = (): React.ReactElement => {
 
   return (
     <>
-      {destination.length === 0 ? (
+      {destination.length === 0 && !isLoading ? (
         <>
           <h1 className="title">You have no destinations yet</h1>
           <div className="add-link-container">

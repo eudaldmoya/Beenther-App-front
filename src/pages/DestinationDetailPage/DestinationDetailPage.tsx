@@ -49,6 +49,10 @@ const DestinationDetailPage = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     (async () => {
       if (user && destinationId) {
         const selectedDestinationApi = await getDestinationByIdApi(
@@ -64,11 +68,13 @@ const DestinationDetailPage = () => {
     <>
       {selectedDestination && (
         <>
-          <img
-            src={selectedDestination.verticalImageUrl}
-            alt={selectedDestination.name}
-            className="detail__image"
-          />
+          <div className="detail__image-container">
+            <img
+              src={selectedDestination.verticalImageUrl}
+              alt={selectedDestination.name}
+              className="detail__image"
+            />
+          </div>
           <div className="detail__filter"></div>
           <div className="detail">
             <h1 className="detail__title">{selectedDestination.name}</h1>

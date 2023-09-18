@@ -261,14 +261,12 @@ const CountrySelect = ({ handleChange }: CountrySelectProps) => {
         <option value="Sri Lanka">Sri Lanka</option>
         <option value="Sudan">Sudan</option>
         <option value="Suriname">Suriname</option>
-        <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+        <option value="Svalbard">Svalbard and Jan Mayen</option>
         <option value="Swaziland">Swaziland</option>
         <option value="Sweden">Sweden</option>
         <option value="Switzerland">Switzerland</option>
-        <option value="Syrian Arab Republic">Syrian Arab Republic</option>
-        <option value="Taiwan, Province of China">
-          Taiwan, Province of China
-        </option>
+        <option value="Syria">Syrian Arab Republic</option>
+        <option value="Taiwan">Taiwan, Province of China</option>
         <option value="Tajikistan">Tajikistan</option>
         <option value="Tanzania">Tanzania</option>
         <option value="Thailand">Thailand</option>
