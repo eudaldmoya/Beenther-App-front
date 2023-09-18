@@ -270,13 +270,11 @@ describe("Given an App component", () => {
 
       await userEvent.click(link);
 
-      await waitFor(async () => {
-        const heading = await screen.findByRole("heading", {
-          name: headingText,
-        });
-
-        expect(heading).toBeInTheDocument();
+      const heading = await screen.findByRole("heading", {
+        name: headingText,
       });
+
+      expect(heading).toBeInTheDocument();
     });
   });
 

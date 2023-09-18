@@ -71,7 +71,13 @@ const DestinationCard = ({
             </div>
           </NavLink>
           <button onClick={handleDeleteClick} aria-label="delete-button">
-            <img src={deleteIcon} alt="delete icon" height="42" width="42" />
+            <img
+              src={deleteIcon}
+              alt="delete icon"
+              height="42"
+              width="42"
+              className="card__delete-image"
+            />
           </button>
         </div>
       </article>
