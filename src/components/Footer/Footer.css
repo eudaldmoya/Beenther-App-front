@@ -1,0 +1,28 @@
+.footer {
+  padding: 20px;
+  padding-bottom: 4px;
+  background-color: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+}
+
+.footer__title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.footer > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__copyright {
+  margin-top: 16px;
+  align-self: center;
+  font-size: 12px;
+}
