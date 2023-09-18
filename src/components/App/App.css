@@ -6,5 +6,7 @@
 
 .toast {
   border-radius: 8px;
-  margin: 20px;
+  max-width: 360px;
+  margin: auto;
+  margin-top: 160px;
 }

@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import paths from "../../paths/paths";
 import "./ErrorPage.css";
+import "../../components/Button/Button.css";
 
 const ErrorPage = () => {
   return (

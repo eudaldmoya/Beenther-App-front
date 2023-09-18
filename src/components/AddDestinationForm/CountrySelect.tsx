@@ -270,9 +270,7 @@ const CountrySelect = ({ handleChange }: CountrySelectProps) => {
           Taiwan, Province of China
         </option>
         <option value="Tajikistan">Tajikistan</option>
-        <option value="Tanzania, United Republic of">
-          Tanzania, United Republic of
-        </option>
+        <option value="Tanzania">Tanzania</option>
         <option value="Thailand">Thailand</option>
         <option value="Timor-Leste">Timor-Leste</option>
         <option value="Togo">Togo</option>
