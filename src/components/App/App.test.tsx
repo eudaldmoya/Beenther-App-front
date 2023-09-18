@@ -5,7 +5,7 @@ import auth, { AuthStateHook, IdTokenHook } from "react-firebase-hooks/auth";
 import { Provider } from "react-redux";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import { destinationsMock } from "../../mocks/destinationsMock";
-import { formHandlers } from "../../mocks/handlers";
+import { detailHandlers, formHandlers } from "../../mocks/handlers";
 import { server } from "../../mocks/server";
 import { setupStore, store } from "../../store";
 import App from "./App";
@@ -277,6 +277,45 @@ describe("Given an App component", () => {
 
         expect(heading).toBeInTheDocument();
       });
+    });
+  });
+
+  describe("When the user clicks on the delete button in the detail page of 'Lake Louise'", () => {
+    test("Then it should navigate to the destinations page and not show the 'Lake Louise' destination", async () => {
+      server.resetHandlers(...detailHandlers);
+      const authStateHookMock: Partial<AuthStateHook> = [user as User];
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      const useIdTokenHookMock: Partial<IdTokenHook> = [user as User];
+      auth.useIdToken = vi.fn().mockReturnValue(useIdTokenHookMock);
+
+      const store = setupStore({
+        destinationsState: {
+          destinations: [destinationsMock[0]],
+          selectedDestination: destinationsMock[0],
+        },
+        uiState: { isLoading: false },
+      });
+      const path = "/destinations/louiseId";
+      const buttonText = "delete-button";
+      const headingText = "You have no destinations yet";
+
+      render(
+        <MemoryRouter initialEntries={[path]}>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </MemoryRouter>,
+      );
+
+      const toggleButton = await screen.findByRole("button", {
+        name: buttonText,
+      });
+      await userEvent.click(toggleButton);
+
+      const heading = await screen.findByRole("heading", { name: headingText });
+
+      expect(heading).toBeInTheDocument();
     });
   });
 });

@@ -123,4 +123,32 @@ export const detailHandlers = [
       );
     },
   ),
+  rest.patch(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}/${
+      destinationsMock[0]._id
+    }`,
+    (_req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({ destination: { ...destinationsMock[0], isVisited: true } }),
+      );
+    },
+  ),
+  rest.delete(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}/${
+      destinationsMock[0]._id
+    }`,
+    (_req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({ message: "Destination deleted successfully" }),
+      );
+    },
+  ),
+  rest.get(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}`,
+    (_req, res, ctx) => {
+      return res(ctx.status(200), ctx.json({ destinations: [] }));
+    },
+  ),
 ];
