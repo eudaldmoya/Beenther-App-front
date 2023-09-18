@@ -14,6 +14,7 @@ import {
   ErrorPagePreview,
   HomePagePreview,
 } from "../../paths/lazyPages";
+import Footer from "../Footer/Footer";
 
 const App = (): React.ReactElement => {
   const [user] = useAuthState(auth);
@@ -73,6 +74,7 @@ const App = (): React.ReactElement => {
           <Route path={paths.root} element={<Navigate to={paths.home} />} />
         </Routes>
       </main>
+      <Footer />
     </>
   );
 };
