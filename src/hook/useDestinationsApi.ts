@@ -155,7 +155,7 @@ const useDestinationsApi = () => {
   );
 
   const modifyDestinationApi = useCallback(
-    async (id: string, destinationProperty: Pick<Destination, "isVisited">) => {
+    async (id: string, isVisited: boolean) => {
       try {
         if (!user) {
           throw new Error("You are not logged in");
@@ -168,7 +168,7 @@ const useDestinationsApi = () => {
 
         const { data } = await axios.patch(
           `${apiBaseUrl}${paths.destinations}/${id}`,
-          destinationProperty,
+          { isVisited },
           setConfig,
         );
 

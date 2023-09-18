@@ -41,9 +41,7 @@ const DestinationDetailPage = () => {
     if (selectedDestination) {
       const modifiedDestination = await modifyDestinationApi(
         selectedDestination._id,
-        {
-          isVisited: selectedDestination.isVisited,
-        },
+        selectedDestination.isVisited,
       );
 
       dispatch(modifyDestinationActionCreator(modifiedDestination));

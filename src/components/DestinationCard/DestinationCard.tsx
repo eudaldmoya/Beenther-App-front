@@ -32,7 +32,7 @@ const DestinationCard = ({
   };
 
   const handleToggleClick = async () => {
-    const modifiedDestination = await modifyDestinationApi(_id, { isVisited });
+    const modifiedDestination = await modifyDestinationApi(_id, isVisited);
 
     dispatch(modifyDestinationActionCreator(modifiedDestination));
   };
