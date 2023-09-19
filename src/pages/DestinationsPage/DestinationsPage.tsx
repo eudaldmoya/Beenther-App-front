@@ -47,7 +47,7 @@ const DestinationsPage = (): React.ReactElement => {
         <>
           <h1 className="title">Your destinations</h1>
           {isLoading && destinations.length === 0 ? (
-            <Loading />
+            <Loading className="bar" />
           ) : (
             <DestinationsList />
           )}

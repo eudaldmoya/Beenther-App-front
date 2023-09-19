@@ -55,7 +55,7 @@ const DestinationCard = ({
           }
         >
           {isLoading && idLoading === _id ? (
-            <Loading />
+            <Loading className={isVisited ? "inverted-bar" : "bar"} />
           ) : (
             <>
               {isVisited ? "Visited" : "Pending"}

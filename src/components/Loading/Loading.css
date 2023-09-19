@@ -5,13 +5,22 @@
   position: absolute;
 }
 
-.bar {
+.bar,
+.inverted-bar {
   width: 6px;
   height: 40px;
   display: inline-block;
   transform-origin: bottom center;
+}
+
+.bar {
   animation: loader 1.2s linear infinite;
 }
+
+.inverted-bar {
+  animation: loaderI 1.2s linear infinite;
+}
+
 .bar1 {
   animation-delay: 0.1s;
 }
@@ -45,6 +54,21 @@
   50% {
     transform: scaleY(1);
     background: var(--secondary-color);
+  }
+  100% {
+    transform: scaleY(0.1);
+    background: transparent;
+  }
+}
+
+@keyframes loaderI {
+  0% {
+    transform: scaleY(0.1);
+    background: transparent;
+  }
+  50% {
+    transform: scaleY(1);
+    background: var(--tertiary-color);
   }
   100% {
     transform: scaleY(0.1);
