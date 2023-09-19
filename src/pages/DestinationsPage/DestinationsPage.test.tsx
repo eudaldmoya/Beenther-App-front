@@ -34,7 +34,7 @@ describe("Given a DestinationsPage page", () => {
 
   describe("When the user clicks on the delete button with id 'louiseId'", () => {
     test("Then it should not show the 'Lake Louise' card", async () => {
-      const labelText = "delete-button";
+      const buttonText = "delete icon";
       const headingText = "Lake Louise";
       const user: Partial<User> = {
         getIdToken: vi.fn().mockResolvedValue("token"),
@@ -59,7 +59,9 @@ describe("Given a DestinationsPage page", () => {
 
       const heading = await screen.findByRole("heading", { name: headingText });
 
-      const deleteButton = await screen.findAllByLabelText(labelText);
+      const deleteButton = await screen.findAllByRole("button", {
+        name: buttonText,
+      });
       await userEvent.click(deleteButton[0]);
 
       expect(heading).not.toBeInTheDocument();

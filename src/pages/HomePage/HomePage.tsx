@@ -1,4 +1,5 @@
 import { signInWithPopup } from "firebase/auth";
+import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navigate } from "react-router-dom";
 import githubLogo from "../../assets/githubLogo.svg";
@@ -9,6 +10,10 @@ import "./HomePage.css";
 
 const HomePage = () => {
   const [user] = useAuthState(auth);
+
+  useEffect(() => {
+    document.title = "Sign in page";
+  }, []);
 
   if (user) {
     return <Navigate to={paths.destinations} />;

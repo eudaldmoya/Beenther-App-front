@@ -21,6 +21,8 @@ const DestinationsPage = (): React.ReactElement => {
   );
 
   useEffect(() => {
+    document.title = "Your destinations";
+
     (async () => {
       if (user) {
         const destinations = await getDestinationsApi();

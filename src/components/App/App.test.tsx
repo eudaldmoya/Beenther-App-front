@@ -295,7 +295,7 @@ describe("Given an App component", () => {
         uiState: { isLoading: false },
       });
       const path = "/destinations/louiseId";
-      const buttonText = "delete-button";
+      const buttonText = "delete icon";
       const headingText = "You have no destinations yet";
 
       render(
@@ -311,7 +311,9 @@ describe("Given an App component", () => {
       });
       await userEvent.click(toggleButton);
 
-      const heading = await screen.findByRole("heading", { name: headingText });
+      const heading = await screen.findByRole("heading", {
+        name: headingText,
+      });
 
       expect(heading).toBeInTheDocument();
     });

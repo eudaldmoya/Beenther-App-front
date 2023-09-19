@@ -53,6 +53,8 @@ const DestinationDetailPage = () => {
   }, []);
 
   useEffect(() => {
+    document.title = "Destinations details";
+
     (async () => {
       if (user && destinationId) {
         const selectedDestinationApi = await getDestinationByIdApi(
@@ -97,7 +99,7 @@ const DestinationDetailPage = () => {
                   height="24"
                 />
               </Button>
-              <button onClick={handleDeleteClick} aria-label="delete-button">
+              <button onClick={handleDeleteClick}>
                 <img
                   src={deleteIcon}
                   alt="delete icon"

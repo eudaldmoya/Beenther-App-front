@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import "../../components/Button/Button.css";
 import paths from "../../paths/paths";
 import "./ErrorPage.css";
-import "../../components/Button/Button.css";
 
 const ErrorPage = () => {
+  useEffect(() => {
+    document.title = "Not found 404";
+  }, []);
+
   return (
     <div className="error">
       <span className="error__code">404</span>
