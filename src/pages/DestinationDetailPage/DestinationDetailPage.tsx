@@ -93,7 +93,11 @@ const DestinationDetailPage = () => {
                 }
               >
                 {isLoading ? (
-                  <Loading />
+                  <Loading
+                    className={
+                      selectedDestination.isVisited ? "inverted-bar" : "bar"
+                    }
+                  />
                 ) : (
                   <>
                     {selectedDestination.isVisited ? "Visited" : "Pending"}

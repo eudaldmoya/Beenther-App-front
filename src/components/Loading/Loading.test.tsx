@@ -6,7 +6,7 @@ describe("Given a Loading component", () => {
     test("Then it should show a loading animation", () => {
       const labelText = "loading";
 
-      render(<Loading />);
+      render(<Loading className="bar" />);
 
       const loading = screen.getByLabelText(labelText);
 

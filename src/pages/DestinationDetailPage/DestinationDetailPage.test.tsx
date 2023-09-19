@@ -5,7 +5,7 @@ import auth, { AuthStateHook, IdTokenHook } from "react-firebase-hooks/auth";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { destinationsMock } from "../../mocks/destinationsMock";
-import { detailHandlers } from "../../mocks/handlers";
+import { detailHandlers, toggleHandler } from "../../mocks/handlers";
 import { server } from "../../mocks/server";
 import { setupStore } from "../../store";
 import { DestinationDetailPagePreview } from "../../paths/lazyPages";
@@ -28,7 +28,7 @@ describe("Given a DestinationDetailPage page", () => {
       const store = setupStore({
         destinationsState: {
           destinations: [],
-          selectedDestination: destinationsMock[0],
+          selectedDestination: { ...destinationsMock[0], isVisited: true },
         },
         uiState: { isLoading: false },
       });
@@ -79,6 +79,56 @@ describe("Given a DestinationDetailPage page", () => {
       const path = "/destinations/louiseId";
       const expectedButtonText = "Visited Visited";
       const buttonText = "Pending Pending";
+
+      render(
+        <MemoryRouter initialEntries={[path]}>
+          <Routes>
+            <Route
+              path="/destinations/:destinationId"
+              element={
+                <Provider store={store}>
+                  <Suspense>
+                    <DestinationDetailPagePreview />
+                  </Suspense>
+                </Provider>
+              }
+            ></Route>
+          </Routes>
+        </MemoryRouter>,
+      );
+
+      const toggleButton = await screen.findByRole("button", {
+        name: buttonText,
+      });
+      await userEvent.click(toggleButton);
+
+      const button = await screen.findByRole("button", {
+        name: expectedButtonText,
+      });
+
+      expect(button).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user clicks on the modify destination button with text 'Visited'", () => {
+    test("Then it should toggle and show the text 'Pending'", async () => {
+      server.resetHandlers(...toggleHandler);
+      const authStateHookMock: Partial<AuthStateHook> = [user as User];
+      auth.useAuthState = vi.fn().mockReturnValue(authStateHookMock);
+
+      const useIdTokenHookMock: Partial<IdTokenHook> = [user as User];
+      auth.useIdToken = vi.fn().mockReturnValue(useIdTokenHookMock);
+
+      const store = setupStore({
+        destinationsState: {
+          destinations: [],
+          selectedDestination: destinationsMock[1],
+        },
+        uiState: { isLoading: false },
+      });
+      const path = "/destinations/angkorId";
+      const expectedButtonText = "Pending Pending";
+      const buttonText = "Visited Visited";
 
       render(
         <MemoryRouter initialEntries={[path]}>
