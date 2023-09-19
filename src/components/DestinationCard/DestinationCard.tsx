@@ -70,7 +70,7 @@ const DestinationCard = ({
               <span className="card__location">{`${location}, ${country}`}</span>
             </div>
           </NavLink>
-          <button onClick={handleDeleteClick} aria-label="delete-button">
+          <button onClick={handleDeleteClick}>
             <img
               src={deleteIcon}
               alt="delete icon"

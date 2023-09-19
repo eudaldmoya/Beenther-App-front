@@ -7,11 +7,16 @@ import { useAppDispatch } from "../../store";
 import { addDestinationActionCreator } from "../../store/destinations/destinationsSlice";
 import { Destination } from "../../types";
 import "./AddDestinationPage.css";
+import { useEffect } from "react";
 
 const AddDestinationPage = () => {
   const { addDestinationApi } = useDestinationsApi();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Add a new destination";
+  }, []);
 
   const actionOnSubmit = async (
     newDestination: Omit<Destination, "_id" | "user">,
