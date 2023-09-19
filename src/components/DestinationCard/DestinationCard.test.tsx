@@ -13,12 +13,15 @@ describe("Given a DestinationCard component", () => {
       render(
         <BrowserRouter>
           <Provider store={store}>
-            <DestinationCard destination={destinationsMock[0]} isLazy={false} />
+            <DestinationCard
+              destination={{ ...destinationsMock[0], isVisited: true }}
+              isLazy={false}
+            />
           </Provider>
           ,
         </BrowserRouter>,
       );
-
+      screen.debug();
       const heading = screen.getByRole("heading", { name: text });
 
       expect(heading).toBeInTheDocument();
