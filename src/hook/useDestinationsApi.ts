@@ -163,12 +163,16 @@ const useDestinationsApi = () => {
 
         const token = await user.getIdToken();
         const setConfig = {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "text/plain",
+          },
         };
+        const isVisitedString = isVisited ? "true" : "false";
 
         const { data } = await axios.patch(
           `${apiBaseUrl}${paths.destinations}/${id}`,
-          { isVisited },
+          isVisitedString,
           setConfig,
         );
 
