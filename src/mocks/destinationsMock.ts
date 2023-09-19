@@ -24,7 +24,7 @@ export const destinationsMock: Destination[] = [
     horizontalImageUrl:
       "https://cdn.discordapp.com/attachments/1129112790255276126/1149317477638094958/h-angkor.webp",
     verticalImageUrl: "vimage.png",
-    isVisited: false,
+    isVisited: true,
     user: "userId",
   },
 ];

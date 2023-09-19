@@ -152,3 +152,17 @@ export const detailHandlers = [
     },
   ),
 ];
+
+export const toggleHandler = [
+  rest.patch(
+    `${import.meta.env.VITE_DESTINATIONS_API_URL}${paths.destinations}/${
+      destinationsMock[1]._id
+    }`,
+    (_req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({ destination: { ...destinationsMock[1], isVisited: false } }),
+      );
+    },
+  ),
+];
