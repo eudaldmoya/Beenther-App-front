@@ -9,6 +9,7 @@ import { loadDestinationsActionCreator } from "../../store/destinations/destinat
 import "./DestinationsPage.css";
 import { NavLink } from "react-router-dom";
 import paths from "../../paths/paths";
+import "../AddDestinationPage/AddDestinationPage.css";
 
 const DestinationsPage = (): React.ReactElement => {
   const dispatch = useAppDispatch();

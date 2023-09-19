@@ -65,7 +65,7 @@ const DestinationDetailPage = () => {
   }, [destinationId, dispatch, getDestinationByIdApi, user]);
 
   return (
-    <>
+    <div className="detail-page">
       {selectedDestination && (
         <>
           <div className="detail__image-container">
@@ -109,7 +109,7 @@ const DestinationDetailPage = () => {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 
