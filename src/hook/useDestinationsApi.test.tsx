@@ -8,7 +8,7 @@ import {
   destinationsMock,
   sentDestinationMock,
 } from "../mocks/destinationsMock";
-import { errorHandlers } from "../mocks/handlers";
+import { errorHandlers, toggleHandler } from "../mocks/handlers";
 import { PropsWithChildren } from "react";
 import { setupStore } from "../store";
 import { Provider } from "react-redux";
@@ -256,13 +256,25 @@ describe("Given a useDestinationsApi custom hook", () => {
 
     const id = "louiseId";
 
-    test("Then it should return the destination with isVisited:true", async () => {
+    test("Then it should return the destination with isVisited: true", async () => {
       const modifiedDestination = await modifyDestinationApi(
         id,
         destinationsMock[0].isVisited,
       );
 
       expect(modifiedDestination).toHaveProperty("isVisited", true);
+    });
+
+    test("Then it should return the destination with isVisited: false", async () => {
+      server.resetHandlers(...toggleHandler);
+      const id = "angkorId";
+
+      const modifiedDestination = await modifyDestinationApi(
+        id,
+        destinationsMock[1].isVisited,
+      );
+
+      expect(modifiedDestination).toHaveProperty("isVisited", false);
     });
 
     test("Then it should throw an error 'Could not modify the destination'", () => {
