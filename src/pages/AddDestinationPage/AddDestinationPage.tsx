@@ -15,7 +15,7 @@ const AddDestinationPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = "Add a new destination";
+    document.title = "Beenther | Add a new destination";
   }, []);
 
   const actionOnSubmit = async (

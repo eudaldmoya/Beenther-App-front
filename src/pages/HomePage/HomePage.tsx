@@ -12,7 +12,7 @@ const HomePage = () => {
   const [user] = useAuthState(auth);
 
   useEffect(() => {
-    document.title = "Sign in page";
+    document.title = "Beenther | Sign in page";
   }, []);
 
   if (user) {

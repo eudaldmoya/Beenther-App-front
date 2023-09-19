@@ -21,7 +21,7 @@ const DestinationsPage = (): React.ReactElement => {
   );
 
   useEffect(() => {
-    document.title = "Your destinations";
+    document.title = "Beenther | Your destinations";
 
     (async () => {
       if (user) {
