@@ -53,6 +53,7 @@ article > .card__button {
   display: flex;
   padding: 14px 10px;
   width: 135px;
+  height: 52px;
 }
 
 article > .unselected {

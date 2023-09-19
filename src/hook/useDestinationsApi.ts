@@ -157,7 +157,10 @@ const useDestinationsApi = () => {
   const modifyDestinationApi = useCallback(
     async (id: string, isVisited: boolean) => {
       try {
+        dispatch(showLoadingActionCreator());
         if (!user) {
+          dispatch(hideLoadingActionCreator());
+
           throw new Error("You are not logged in");
         }
 
@@ -178,14 +181,18 @@ const useDestinationsApi = () => {
 
         const { destination } = data;
 
+        dispatch(hideLoadingActionCreator());
+
         return destination;
       } catch {
+        dispatch(hideLoadingActionCreator());
+
         showFeedback("Couldn't modify destination", "error");
 
         throw new Error("Could not modify the destination");
       }
     },
-    [apiBaseUrl, user],
+    [apiBaseUrl, dispatch, user],
   );
 
   return {

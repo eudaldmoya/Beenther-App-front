@@ -16,7 +16,7 @@ const DestinationsPage = (): React.ReactElement => {
   const { getDestinationsApi } = useDestinationsApi();
   const [user] = useAuthState(auth);
   const isLoading = useAppSelector((state) => state.uiState.isLoading);
-  const destination = useAppSelector(
+  const destinations = useAppSelector(
     (state) => state.destinationsState.destinations,
   );
 
@@ -34,7 +34,7 @@ const DestinationsPage = (): React.ReactElement => {
 
   return (
     <>
-      {destination.length === 0 && !isLoading ? (
+      {destinations.length === 0 && !isLoading ? (
         <>
           <h1 className="title">You have no destinations yet</h1>
           <div className="add-link-container">
@@ -46,7 +46,11 @@ const DestinationsPage = (): React.ReactElement => {
       ) : (
         <>
           <h1 className="title">Your destinations</h1>
-          {isLoading ? <Loading /> : <DestinationsList />}
+          {isLoading && destinations.length === 0 ? (
+            <Loading />
+          ) : (
+            <DestinationsList />
+          )}
         </>
       )}
     </>
