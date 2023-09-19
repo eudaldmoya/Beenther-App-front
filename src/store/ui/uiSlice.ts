@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { UiState } from "./types";
 
 const initialUiState: UiState = {
@@ -17,12 +17,20 @@ const uiSlice = createSlice({
       ...currentUiState,
       isLoading: false,
     }),
+    setIdLoading: (
+      currentUiState: UiState,
+      action: PayloadAction<string>,
+    ): UiState => ({
+      ...currentUiState,
+      destinationIdLoading: action.payload,
+    }),
   },
 });
 
 export const {
   showLoading: showLoadingActionCreator,
   hideLoading: hideLoadingActionCreator,
+  setIdLoading: setIdLoadingActionCreator,
 } = uiSlice.actions;
 
 export const uiReducer = uiSlice.reducer;
