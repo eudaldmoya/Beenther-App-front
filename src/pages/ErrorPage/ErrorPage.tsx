@@ -6,7 +6,7 @@ import "./ErrorPage.css";
 
 const ErrorPage = () => {
   useEffect(() => {
-    document.title = "Not found 404";
+    document.title = "Beenther | Not found 404";
   }, []);
 
   return (

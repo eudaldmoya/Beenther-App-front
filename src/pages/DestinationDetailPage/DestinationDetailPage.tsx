@@ -49,12 +49,11 @@ const DestinationDetailPage = () => {
   };
 
   useEffect(() => {
+    document.title = `Beenther | ${selectedDestination?.name} details`;
     window.scrollTo(0, 0);
-  }, []);
+  }, [selectedDestination?.name]);
 
   useEffect(() => {
-    document.title = "Destinations details";
-
     (async () => {
       if (user && destinationId) {
         const selectedDestinationApi = await getDestinationByIdApi(
