@@ -4,7 +4,7 @@ import landing from "../../assets/landingIcon.svg";
 import takeoff from "../../assets/takeoffIcon.svg";
 import useDestinationsApi from "../../hook/useDestinationsApi";
 import paths from "../../paths/paths";
-import { useAppDispatch } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store";
 import {
   deleteDestinationActionCreator,
   modifyDestinationActionCreator,
@@ -12,6 +12,8 @@ import {
 import { Destination } from "../../types";
 import Button from "../Button/Button";
 import "./DestinationCard.css";
+import Loading from "../Loading/Loading";
+import { setIdLoadingActionCreator } from "../../store/ui/uiSlice";
 
 interface DestinationCardProps {
   destination: Destination;
@@ -24,6 +26,10 @@ const DestinationCard = ({
 }: DestinationCardProps) => {
   const dispatch = useAppDispatch();
   const { deleteDestinationApi, modifyDestinationApi } = useDestinationsApi();
+  const isLoading = useAppSelector((state) => state.uiState.isLoading);
+  const idLoading = useAppSelector(
+    (state) => state.uiState.destinationIdLoading,
+  );
 
   const handleDeleteClick = async () => {
     await deleteDestinationApi(_id);
@@ -32,6 +38,8 @@ const DestinationCard = ({
   };
 
   const handleToggleClick = async () => {
+    dispatch(setIdLoadingActionCreator(_id));
+
     const modifiedDestination = await modifyDestinationApi(_id, isVisited);
 
     dispatch(modifyDestinationActionCreator(modifiedDestination));
@@ -46,13 +54,19 @@ const DestinationCard = ({
             isVisited ? "card__button selected" : "card__button unselected"
           }
         >
-          {isVisited ? "Visited" : "Pending"}
-          <img
-            src={isVisited ? landing : takeoff}
-            alt={isVisited ? "Visited" : "Pending"}
-            width="24"
-            height="24"
-          />
+          {isLoading && idLoading === _id ? (
+            <Loading />
+          ) : (
+            <>
+              {isVisited ? "Visited" : "Pending"}
+              <img
+                src={isVisited ? landing : takeoff}
+                alt={isVisited ? "Visited" : "Pending"}
+                width="24"
+                height="24"
+              />
+            </>
+          )}
         </Button>
         <img
           src={horizontalImageUrl}

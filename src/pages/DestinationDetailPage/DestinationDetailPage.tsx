@@ -15,6 +15,7 @@ import {
 } from "../../store/destinations/destinationsSlice";
 import "./DestinationDetailPage.css";
 import paths from "../../paths/paths";
+import Loading from "../../components/Loading/Loading";
 
 const DestinationDetailPage = () => {
   const [user] = useAuthState(auth);
@@ -25,6 +26,7 @@ const DestinationDetailPage = () => {
   const selectedDestination = useAppSelector(
     (state) => state.destinationsState.selectedDestination,
   );
+  const isLoading = useAppSelector((state) => state.uiState.isLoading);
   const { deleteDestinationApi, modifyDestinationApi } = useDestinationsApi();
 
   const handleDeleteClick = async () => {
@@ -90,13 +92,21 @@ const DestinationDetailPage = () => {
                   selectedDestination.isVisited ? " selected" : " unselected"
                 }
               >
-                {selectedDestination.isVisited ? "Visited" : "Pending"}
-                <img
-                  src={selectedDestination.isVisited ? landing : takeoff}
-                  alt={selectedDestination.isVisited ? "Visited" : "Pending"}
-                  width="24"
-                  height="24"
-                />
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  <>
+                    {selectedDestination.isVisited ? "Visited" : "Pending"}
+                    <img
+                      src={selectedDestination.isVisited ? landing : takeoff}
+                      alt={
+                        selectedDestination.isVisited ? "Visited" : "Pending"
+                      }
+                      width="24"
+                      height="24"
+                    />
+                  </>
+                )}
               </Button>
               <button onClick={handleDeleteClick}>
                 <img

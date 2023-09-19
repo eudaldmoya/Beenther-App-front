@@ -72,4 +72,5 @@
 .detail__actions > .unselected,
 .detail__actions > .selected {
   width: 175px;
+  height: 64px;
 }
