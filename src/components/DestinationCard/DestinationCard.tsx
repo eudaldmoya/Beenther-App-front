@@ -18,11 +18,13 @@ import { setIdLoadingActionCreator } from "../../store/ui/uiSlice";
 interface DestinationCardProps {
   destination: Destination;
   isLazy: boolean;
+  firstPosition: boolean;
 }
 
 const DestinationCard = ({
   destination: { _id, name, horizontalImageUrl, location, country, isVisited },
   isLazy,
+  firstPosition,
 }: DestinationCardProps) => {
   const dispatch = useAppDispatch();
   const { deleteDestinationApi, modifyDestinationApi } = useDestinationsApi();
@@ -44,6 +46,11 @@ const DestinationCard = ({
 
     dispatch(modifyDestinationActionCreator(modifiedDestination));
   };
+
+  if (firstPosition) {
+    const imgElement = new Image();
+    imgElement.src = horizontalImageUrl;
+  }
 
   return (
     <>
