@@ -16,7 +16,6 @@ describe("Given a DestinationCard component", () => {
             <DestinationCard
               destination={{ ...destinationsMock[0], isVisited: true }}
               isLazy={false}
-              firstPosition={true}
             />
           </Provider>
           ,
@@ -34,11 +33,7 @@ describe("Given a DestinationCard component", () => {
       render(
         <BrowserRouter>
           <Provider store={store}>
-            <DestinationCard
-              destination={destinationsMock[0]}
-              isLazy={false}
-              firstPosition={true}
-            />{" "}
+            <DestinationCard destination={destinationsMock[0]} isLazy={false} />{" "}
           </Provider>
           ,
         </BrowserRouter>,
