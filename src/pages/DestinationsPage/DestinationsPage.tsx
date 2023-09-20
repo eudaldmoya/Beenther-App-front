@@ -20,6 +20,14 @@ const DestinationsPage = (): React.ReactElement => {
     (state) => state.destinationsState.destinations,
   );
 
+  const preloadFirstImage = (image: string) => {
+    const preloadImageLink = document.createElement("link");
+    preloadImageLink.href = image;
+    preloadImageLink.rel = "preload";
+    preloadImageLink.as = "image";
+    document.head.appendChild(preloadImageLink);
+  };
+
   useEffect(() => {
     document.title = "Beenther | Your destinations";
 
@@ -28,6 +36,10 @@ const DestinationsPage = (): React.ReactElement => {
         const destinations = await getDestinationsApi();
 
         dispatch(loadDestinationsActionCreator(destinations));
+
+        if (destinations.length !== 0) {
+          preloadFirstImage(destinations[0].horizontalImageUrl);
+        }
       }
     })();
   }, [dispatch, getDestinationsApi, user]);
