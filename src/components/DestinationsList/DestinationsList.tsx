@@ -11,9 +11,14 @@ const DestinationsList = () => {
     <ul className="destinations-list">
       {destinations.map((destination, destinationPosition) => {
         const isLazy = destinationPosition >= 2;
+        const firstPosition = destinationPosition === 0;
         return (
           <li key={destination._id}>
-            <DestinationCard destination={destination} isLazy={isLazy} />
+            <DestinationCard
+              destination={destination}
+              isLazy={isLazy}
+              firstPosition={firstPosition}
+            />
           </li>
         );
       })}
