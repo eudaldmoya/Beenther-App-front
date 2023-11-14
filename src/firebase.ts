@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
   GithubAuthProvider,
+  GoogleAuthProvider,
   browserLocalPersistence,
   indexedDBLocalPersistence,
   initializeAuth,
@@ -21,3 +22,4 @@ export const auth = initializeAuth(app, {
 });
 
 export const githubProvider = new GithubAuthProvider();
+export const googleProvider = new GoogleAuthProvider();

@@ -5,6 +5,7 @@ const paths = {
   add: "/add",
   detail: "/destinations/:destinationId",
   wrong: "*",
+  users: "/users",
 };
 
 export default paths;

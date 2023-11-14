@@ -72,6 +72,28 @@ describe("Given an App component", () => {
     });
   });
 
+  describe("When the user clicks on the login button", () => {
+    test("Then the login function should be called", async () => {
+      const buttonText = /sign in google logo/i;
+      const homeRoute = "/home";
+
+      render(
+        <MemoryRouter initialEntries={[homeRoute]}>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </MemoryRouter>,
+      );
+
+      const loginButton = await screen.findByRole("button", {
+        name: buttonText,
+      });
+      await userEvent.click(loginButton);
+
+      expect(signInWithPopup).toHaveBeenCalled();
+    });
+  });
+
   describe("When the user clicks on the logout button", () => {
     test("Then it should show 'Welcome to Beenther!' inside a heading", async () => {
       const buttonText = "logout icon";
